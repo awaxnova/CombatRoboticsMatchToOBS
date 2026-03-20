@@ -432,3 +432,62 @@
 [2026-03-20 15:18:32] [INFO] Saved match plans to data\matchPlans.json
 [2026-03-20 15:18:32] [INFO] Saved bot overrides to data\botOverrides.json
 [2026-03-20 15:18:32] [INFO] Set match 'bfa84506-3b29-43fd-ba33-408779d33442' status to Queued
+[2026-03-20 15:25:12] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:25:12] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:25:12] [INFO] Application shutdown
+[2026-03-20 15:25:15] [INFO] Application startup
+[2026-03-20 15:25:15] [INFO] Loaded division 'SBB 2026 -NRL Bots IQ Bracket' with 0 bots from SBB 2026 -NRL Bots IQ Bracket.csv
+[2026-03-20 15:25:15] [INFO] Loaded division 'SBB IRL #3 PLANT Advanced Open' with 0 bots from SBB IRL #3 PLANT Advanced Open.csv
+[2026-03-20 15:25:15] [INFO] Loaded division 'SBB IRL #3 PLANT Beginner' with 0 bots from SBB IRL #3 PLANT Beginner.csv
+[2026-03-20 15:25:15] [INFO] Loaded division 'SBB IRL #3 PLANT Intermediate' with 0 bots from SBB IRL #3 PLANT Intermediate.csv
+[2026-03-20 15:25:15] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 15:25:15] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 15:25:16] [INFO] Cleared OBS output files
+[2026-03-20 15:26:03] [INFO] Wrote OBS output files for live match 'Match 1' in 'SBB 2026 -NRL Bots IQ Bracket'
+[2026-03-20 15:26:03] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:26:03] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:26:03] [INFO] Set live match 'dd77ce74-3b22-4f57-a11d-3767b8181811' in division 'SBB 2026 -NRL Bots IQ Bracket'
+[2026-03-20 15:26:11] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:26:11] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:26:11] [INFO] Application shutdown
+[2026-03-20 15:26:14] [INFO] Application startup
+[2026-03-20 15:26:14] [INFO] Loaded division 'SBB 2026 -NRL Bots IQ Bracket' with 0 bots from SBB 2026 -NRL Bots IQ Bracket.csv
+[2026-03-20 15:26:14] [INFO] Loaded division 'SBB IRL #3 PLANT Advanced Open' with 0 bots from SBB IRL #3 PLANT Advanced Open.csv
+[2026-03-20 15:26:14] [INFO] Loaded division 'SBB IRL #3 PLANT Beginner' with 0 bots from SBB IRL #3 PLANT Beginner.csv
+[2026-03-20 15:26:14] [INFO] Loaded division 'SBB IRL #3 PLANT Intermediate' with 0 bots from SBB IRL #3 PLANT Intermediate.csv
+[2026-03-20 15:26:14] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 15:26:14] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 15:26:15] [INFO] Wrote OBS output files for live match 'Match 1' in 'SBB 2026 -NRL Bots IQ Bracket'
+[2026-03-20 15:28:06] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:28:06] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:28:06] [INFO] Application shutdown
+[2026-03-20 15:28:09] [INFO] Application startup
+[2026-03-20 15:28:10] [INFO] Loaded division 'SBB 2026 -NRL Bots IQ Bracket' with 0 bots from SBB 2026 -NRL Bots IQ Bracket.csv
+[2026-03-20 15:28:10] [INFO] Loaded division 'SBB IRL #3 PLANT Advanced Open' with 0 bots from SBB IRL #3 PLANT Advanced Open.csv
+[2026-03-20 15:28:10] [INFO] Loaded division 'SBB IRL #3 PLANT Beginner' with 0 bots from SBB IRL #3 PLANT Beginner.csv
+[2026-03-20 15:28:10] [INFO] Loaded division 'SBB IRL #3 PLANT Intermediate' with 0 bots from SBB IRL #3 PLANT Intermediate.csv
+[2026-03-20 15:28:10] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 15:28:10] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 15:28:10] [INFO] Wrote OBS output files for live match 'Match 1' in 'SBB 2026 -NRL Bots IQ Bracket'
+[2026-03-20 15:28:33] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:28:33] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:28:33] [INFO] Application shutdown
+[2026-03-20 15:28:39] [INFO] Application startup
+[2026-03-20 15:28:40] [INFO] Loaded division 'SBB 2026 -NRL Bots IQ Bracket' with 0 bots from SBB 2026 -NRL Bots IQ Bracket.csv
+[2026-03-20 15:28:40] [INFO] Loaded division 'SBB IRL #3 PLANT Advanced Open' with 0 bots from SBB IRL #3 PLANT Advanced Open.csv
+[2026-03-20 15:28:40] [INFO] Loaded division 'SBB IRL #3 PLANT Beginner' with 0 bots from SBB IRL #3 PLANT Beginner.csv
+[2026-03-20 15:28:40] [INFO] Loaded division 'SBB IRL #3 PLANT Intermediate' with 0 bots from SBB IRL #3 PLANT Intermediate.csv
+[2026-03-20 15:28:40] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 15:28:40] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 15:28:40] [INFO] Wrote OBS output files for live match 'Match 1' in 'SBB 2026 -NRL Bots IQ Bracket'
+[2026-03-20 15:29:18] [INFO] Wrote OBS output files for live match 'Match 6' in 'SBB IRL #3 PLANT Beginner'
+[2026-03-20 15:29:18] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:29:18] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:29:18] [INFO] Set live match '870fe7c9-3884-453e-8401-505d67c1e27a' in division 'SBB IRL #3 PLANT Beginner'
+[2026-03-20 15:29:20] [INFO] Cleared OBS output files
+[2026-03-20 15:29:20] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:29:20] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:29:20] [INFO] Cleared live match
+[2026-03-20 15:29:27] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:29:27] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:29:27] [INFO] Application shutdown

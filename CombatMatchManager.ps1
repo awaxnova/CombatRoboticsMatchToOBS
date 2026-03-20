@@ -26,6 +26,13 @@ $script:App = [ordered]@{
         Bot6     = ''
     }
     Controls = [ordered]@{}
+    RenderCache = [ordered]@{
+        BotColors      = @{}
+        TextSizes      = @{}
+        MatchLayouts   = @{}
+        MaxTextEntries = 2000
+        MaxLayoutEntries = 4000
+    }
 }
 
 function New-DeterministicGuid {
@@ -952,6 +959,433 @@ function Write-RumbleListForMatch {
     }
 }
 
+function Convert-HslToColor {
+    param(
+        [double]$Hue,
+        [double]$Saturation,
+        [double]$Lightness
+    )
+
+    $h = ($Hue % 360.0) / 360.0
+    if ($h -lt 0) { $h += 1.0 }
+    $s = [Math]::Max(0.0, [Math]::Min(1.0, $Saturation))
+    $l = [Math]::Max(0.0, [Math]::Min(1.0, $Lightness))
+
+    if ($s -eq 0.0) {
+        $v = [int][Math]::Round($l * 255.0)
+        return [System.Drawing.Color]::FromArgb($v, $v, $v)
+    }
+
+    $q = if ($l -lt 0.5) { $l * (1.0 + $s) } else { $l + $s - ($l * $s) }
+    $p = (2.0 * $l) - $q
+
+    function Get-HueComponent {
+        param([double]$P, [double]$Q, [double]$T)
+        $t = $T
+        if ($t -lt 0.0) { $t += 1.0 }
+        if ($t -gt 1.0) { $t -= 1.0 }
+        if ($t -lt (1.0 / 6.0)) { return $P + (($Q - $P) * 6.0 * $t) }
+        if ($t -lt 0.5) { return $Q }
+        if ($t -lt (2.0 / 3.0)) { return $P + (($Q - $P) * ((2.0 / 3.0) - $t) * 6.0) }
+        return $P
+    }
+
+    $r = Get-HueComponent -P $p -Q $q -T ($h + (1.0 / 3.0))
+    $g = Get-HueComponent -P $p -Q $q -T $h
+    $b = Get-HueComponent -P $p -Q $q -T ($h - (1.0 / 3.0))
+
+    return [System.Drawing.Color]::FromArgb(
+        [int][Math]::Round($r * 255.0),
+        [int][Math]::Round($g * 255.0),
+        [int][Math]::Round($b * 255.0)
+    )
+}
+
+function Get-ContrastTextColor {
+    param([System.Drawing.Color]$BackgroundColor)
+
+    $luminance = ((0.299 * $BackgroundColor.R) + (0.587 * $BackgroundColor.G) + (0.114 * $BackgroundColor.B))
+    if ($luminance -ge 145) {
+        return [System.Drawing.Color]::FromArgb(24, 24, 24)
+    }
+    return [System.Drawing.Color]::FromArgb(248, 248, 248)
+}
+
+function Blend-Color {
+    param(
+        [System.Drawing.Color]$Base,
+        [System.Drawing.Color]$Overlay,
+        [double]$Amount
+    )
+
+    $a = [Math]::Max(0.0, [Math]::Min(1.0, $Amount))
+    $r = [int][Math]::Round(($Base.R * (1.0 - $a)) + ($Overlay.R * $a))
+    $g = [int][Math]::Round(($Base.G * (1.0 - $a)) + ($Overlay.G * $a))
+    $b = [int][Math]::Round(($Base.B * (1.0 - $a)) + ($Overlay.B * $a))
+    return [System.Drawing.Color]::FromArgb($r, $g, $b)
+}
+
+function Get-CachedTextWidth {
+    param(
+        [Parameter(Mandatory = $true)][System.Drawing.Graphics]$Graphics,
+        [Parameter(Mandatory = $true)][System.Drawing.Font]$Font,
+        [Parameter(Mandatory = $true)][string]$Text
+    )
+
+    $key = "$($Font.Name)|$([int][Math]::Round($Font.SizeInPoints * 10))|$Text"
+    if ($script:App.RenderCache.TextSizes.ContainsKey($key)) {
+        return [int]$script:App.RenderCache.TextSizes[$key]
+    }
+
+    $measureFlags = [System.Windows.Forms.TextFormatFlags]::NoPadding -bor [System.Windows.Forms.TextFormatFlags]::SingleLine
+    $width = [System.Windows.Forms.TextRenderer]::MeasureText($Graphics, $Text, $Font, [System.Drawing.Size]::Empty, $measureFlags).Width
+
+    if ($script:App.RenderCache.TextSizes.Count -gt $script:App.RenderCache.MaxTextEntries) {
+        $script:App.RenderCache.TextSizes.Clear()
+    }
+    $script:App.RenderCache.TextSizes[$key] = $width
+    return [int]$width
+}
+
+function Get-BotColorStyle {
+    param([string]$BotName)
+
+    $normalized = Normalize-BotName -Name $BotName
+    $key = Get-BotNameKey -Name $normalized
+    if ([string]::IsNullOrWhiteSpace($key)) {
+        $fallback = [System.Drawing.Color]::FromArgb(125, 125, 125)
+        return [ordered]@{
+            Border = $fallback
+            Fill   = Blend-Color -Base ([System.Drawing.Color]::White) -Overlay $fallback -Amount 0.16
+            Text   = [System.Drawing.Color]::FromArgb(32, 32, 32)
+        }
+    }
+
+    if ($script:App.RenderCache.BotColors.ContainsKey($key)) {
+        return $script:App.RenderCache.BotColors[$key]
+    }
+
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($key)
+    $hash = [System.Security.Cryptography.MD5]::Create().ComputeHash($bytes)
+    $seedA = [int]$hash[0]
+    $seedB = [int]$hash[1]
+    $seedC = [int]$hash[2]
+
+    $hue = (($seedA * 256) + $seedB) % 360
+    $sat = 0.62 + ((($seedC % 31) / 100.0))
+    $base = Convert-HslToColor -Hue $hue -Saturation $sat -Lightness 0.46
+
+    $fill = Blend-Color -Base ([System.Drawing.Color]::White) -Overlay $base -Amount 0.20
+    $text = Get-ContrastTextColor -BackgroundColor $fill
+
+    $style = [ordered]@{
+        Border = $base
+        Fill   = $fill
+        Text   = $text
+    }
+    $script:App.RenderCache.BotColors[$key] = $style
+    return $style
+}
+
+function New-RoundedRectPath {
+    param(
+        [System.Drawing.RectangleF]$Rect,
+        [float]$Radius
+    )
+
+    $path = New-Object System.Drawing.Drawing2D.GraphicsPath
+    if ($Radius -le 0.5) {
+        $path.AddRectangle($Rect)
+        return $path
+    }
+
+    $diameter = [Math]::Min($Rect.Width, [Math]::Min($Rect.Height, ($Radius * 2.0)))
+    $arc = New-Object System.Drawing.RectangleF($Rect.X, $Rect.Y, $diameter, $diameter)
+
+    $path.AddArc($arc, 180.0, 90.0)
+    $arc.X = $Rect.Right - $diameter
+    $path.AddArc($arc, 270.0, 90.0)
+    $arc.Y = $Rect.Bottom - $diameter
+    $path.AddArc($arc, 0.0, 90.0)
+    $arc.X = $Rect.X
+    $path.AddArc($arc, 90.0, 90.0)
+    $path.CloseFigure()
+    return $path
+}
+
+function Get-MatchStatusVisual {
+    param([string]$Status)
+
+    $statusValue = [string]$Status
+    switch ($statusValue.Trim().ToLowerInvariant()) {
+        'live' {
+            $base = [System.Drawing.Color]::FromArgb(190, 45, 42)
+            break
+        }
+        'done' {
+            $base = [System.Drawing.Color]::FromArgb(36, 138, 79)
+            break
+        }
+        default {
+            $base = [System.Drawing.Color]::FromArgb(92, 100, 110)
+            break
+        }
+    }
+
+    $fill = Blend-Color -Base ([System.Drawing.Color]::White) -Overlay $base -Amount 0.18
+    return [ordered]@{
+        Border = $base
+        Fill   = $fill
+        Text   = Get-ContrastTextColor -BackgroundColor $fill
+    }
+}
+
+function New-MatchRenderTokens {
+    param([Parameter(Mandatory = $true)]$Match)
+
+    $tokens = @()
+    $tokens += [PSCustomObject]@{ Kind = 'Prefix'; Text = "Match $($Match.MatchNumber)" }
+
+    $bots = @(ConvertTo-SafeArray -Value $Match.Bots) |
+        ForEach-Object { Normalize-BotName -Name ([string]$_) } |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+
+    for ($i = 0; $i -lt $bots.Count; $i++) {
+        $tokens += [PSCustomObject]@{
+            Kind  = 'Bot'
+            Text  = $bots[$i]
+            Color = (Get-BotColorStyle -BotName $bots[$i])
+        }
+
+        if ($i -lt ($bots.Count - 1)) {
+            $tokens += [PSCustomObject]@{ Kind = 'Separator'; Text = 'vs' }
+        }
+    }
+
+    return @($tokens)
+}
+
+function Get-MatchRenderLayout {
+    param(
+        [Parameter(Mandatory = $true)][System.Drawing.Graphics]$Graphics,
+        [Parameter(Mandatory = $true)][System.Drawing.Font]$Font,
+        [Parameter(Mandatory = $true)]$Match,
+        [int]$AvailableWidth = 900
+    )
+
+    $paddingX = 8
+    $paddingY = 4
+    $gap = 6
+    $lineHeight = [Math]::Max($Font.Height + 8, 24)
+    $botPadX = 9
+    $statusPadX = 10
+    $statusHeight = [Math]::Max($Font.Height + 8, 24)
+    $statusText = [string]$Match.Status
+
+    $statusTextWidth = Get-CachedTextWidth -Graphics $Graphics -Font $Font -Text $statusText
+    $statusWidth = [Math]::Max(86, ($statusTextWidth + ($statusPadX * 2)))
+
+    $contentWidth = [Math]::Max(120, $AvailableWidth - ($paddingX * 2) - $statusWidth - $gap)
+    $xStart = $paddingX
+    $x = $xStart
+    $line = 0
+    $segments = @()
+    $tokens = New-MatchRenderTokens -Match $Match
+
+    foreach ($token in $tokens) {
+        $text = [string]$token.Text
+        $textWidth = Get-CachedTextWidth -Graphics $Graphics -Font $Font -Text $text
+
+        $tokenWidth = switch ($token.Kind) {
+            'Bot' { $textWidth + ($botPadX * 2) }
+            'Separator' { $textWidth + 14 }
+            default { $textWidth + 2 }
+        }
+
+        if (($x -gt $xStart) -and (($x + $tokenWidth) -gt ($xStart + $contentWidth))) {
+            $line++
+            $x = $xStart
+        }
+
+        $tokenY = $paddingY + ($line * $lineHeight)
+        $segments += [PSCustomObject]@{
+            Token = $token
+            Rect  = [System.Drawing.RectangleF]::new([float]$x, [float]$tokenY, [float]$tokenWidth, [float]$lineHeight)
+        }
+        $x += ($tokenWidth + $gap)
+    }
+
+    $totalLines = [Math]::Max(1, ($line + 1))
+    $rowHeight = ($paddingY * 2) + ($totalLines * $lineHeight)
+    $statusX = $paddingX + $contentWidth + $gap
+    $statusY = [int][Math]::Round(($rowHeight - $statusHeight) / 2.0)
+    if ($statusY -lt $paddingY) { $statusY = $paddingY }
+
+    return [ordered]@{
+        Segments   = @($segments)
+        RowHeight  = [int]$rowHeight
+        PaddingX   = $paddingX
+        PaddingY   = $paddingY
+        StatusText = $statusText
+        StatusRect = [System.Drawing.RectangleF]::new([float]$statusX, [float]$statusY, [float]$statusWidth, [float]$statusHeight)
+    }
+}
+
+function Get-CachedMatchRenderLayout {
+    param(
+        [Parameter(Mandatory = $true)][System.Drawing.Graphics]$Graphics,
+        [Parameter(Mandatory = $true)][System.Drawing.Font]$Font,
+        [Parameter(Mandatory = $true)]$Match,
+        [int]$AvailableWidth = 900
+    )
+
+    $botsKey = ((ConvertTo-SafeArray -Value $Match.Bots) |
+        ForEach-Object { Normalize-BotName -Name ([string]$_) } |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) }) -join '|'
+    $layoutKey = "$($Match.Id)|$([string]$Match.UpdatedAt)|$([string]$Match.Status)|$AvailableWidth|$($Font.Name)|$([int][Math]::Round($Font.SizeInPoints * 10))|$botsKey"
+
+    if ($script:App.RenderCache.MatchLayouts.ContainsKey($layoutKey)) {
+        return $script:App.RenderCache.MatchLayouts[$layoutKey]
+    }
+
+    $layout = Get-MatchRenderLayout -Graphics $Graphics -Font $Font -Match $Match -AvailableWidth $AvailableWidth
+    if ($script:App.RenderCache.MatchLayouts.Count -gt $script:App.RenderCache.MaxLayoutEntries) {
+        $script:App.RenderCache.MatchLayouts.Clear()
+    }
+    $script:App.RenderCache.MatchLayouts[$layoutKey] = $layout
+    return $layout
+}
+
+function Draw-MatchListItem {
+    param(
+        [Parameter(Mandatory = $true)]$DrawEventArgs,
+        [Parameter(Mandatory = $true)]$Item
+    )
+
+    $g = $DrawEventArgs.Graphics
+    $bounds = $DrawEventArgs.Bounds
+    $font = $DrawEventArgs.Font
+    $state = $DrawEventArgs.State
+    $isSelected = (($state -band [System.Windows.Forms.DrawItemState]::Selected) -eq [System.Windows.Forms.DrawItemState]::Selected)
+
+    $background = [System.Drawing.SystemColors]::Window
+    if ($isSelected) {
+        $background = Blend-Color -Base $background -Overlay ([System.Drawing.SystemColors]::Highlight) -Amount 0.20
+    }
+
+    $backBrush = New-Object System.Drawing.SolidBrush($background)
+    try {
+        $g.FillRectangle($backBrush, $bounds)
+    }
+    finally {
+        $backBrush.Dispose()
+    }
+
+    $match = $Item.Match
+    $localLayout = Get-CachedMatchRenderLayout -Graphics $g -Font $font -Match $match -AvailableWidth $bounds.Width
+    $textFlags = [System.Windows.Forms.TextFormatFlags]::HorizontalCenter `
+        -bor [System.Windows.Forms.TextFormatFlags]::VerticalCenter `
+        -bor [System.Windows.Forms.TextFormatFlags]::NoPadding `
+        -bor [System.Windows.Forms.TextFormatFlags]::EndEllipsis `
+        -bor [System.Windows.Forms.TextFormatFlags]::SingleLine
+    $leftTextFlags = [System.Windows.Forms.TextFormatFlags]::Left `
+        -bor [System.Windows.Forms.TextFormatFlags]::VerticalCenter `
+        -bor [System.Windows.Forms.TextFormatFlags]::NoPadding `
+        -bor [System.Windows.Forms.TextFormatFlags]::SingleLine
+
+    foreach ($segment in $localLayout.Segments) {
+        $token = $segment.Token
+        $tokenRect = [System.Drawing.RectangleF]::new(
+            $bounds.X + $segment.Rect.X,
+            $bounds.Y + $segment.Rect.Y,
+            $segment.Rect.Width,
+            $segment.Rect.Height
+        )
+        $textRect = [System.Drawing.Rectangle]::new(
+            [int][Math]::Floor($tokenRect.X),
+            [int][Math]::Floor($tokenRect.Y),
+            [int][Math]::Ceiling($tokenRect.Width),
+            [int][Math]::Ceiling($tokenRect.Height)
+        )
+
+        switch ($token.Kind) {
+            'Bot' {
+                $fillBrush = New-Object System.Drawing.SolidBrush($token.Color.Fill)
+                $borderPen = New-Object System.Drawing.Pen($token.Color.Border, 1.4)
+                $pillPath = New-RoundedRectPath -Rect $tokenRect -Radius ([float]($tokenRect.Height / 2.0))
+
+                try {
+                    $g.FillPath($fillBrush, $pillPath)
+                    $g.DrawPath($borderPen, $pillPath)
+                    [System.Windows.Forms.TextRenderer]::DrawText($g, [string]$token.Text, $font, $textRect, $token.Color.Text, $textFlags)
+                }
+                finally {
+                    $pillPath.Dispose()
+                    $fillBrush.Dispose()
+                    $borderPen.Dispose()
+                }
+                break
+            }
+            'Separator' {
+                $sepBorder = [System.Drawing.Color]::FromArgb(138, 138, 138)
+                $sepFill = Blend-Color -Base ([System.Drawing.Color]::White) -Overlay $sepBorder -Amount 0.10
+                $sepText = [System.Drawing.Color]::FromArgb(72, 72, 72)
+                $sepBrush = New-Object System.Drawing.SolidBrush($sepFill)
+                $sepPen = New-Object System.Drawing.Pen($sepBorder, 1.0)
+                $sepPath = New-RoundedRectPath -Rect $tokenRect -Radius ([float]($tokenRect.Height / 2.0))
+                try {
+                    $g.FillPath($sepBrush, $sepPath)
+                    $g.DrawPath($sepPen, $sepPath)
+                    [System.Windows.Forms.TextRenderer]::DrawText($g, [string]$token.Text, $font, $textRect, $sepText, $textFlags)
+                }
+                finally {
+                    $sepPath.Dispose()
+                    $sepBrush.Dispose()
+                    $sepPen.Dispose()
+                }
+                break
+            }
+            default {
+                $prefixColor = [System.Drawing.Color]::FromArgb(40, 40, 40)
+                [System.Windows.Forms.TextRenderer]::DrawText($g, [string]$token.Text, $font, $textRect, $prefixColor, $leftTextFlags)
+                break
+            }
+        }
+    }
+
+    $statusVisual = Get-MatchStatusVisual -Status $localLayout.StatusText
+    $statusRect = [System.Drawing.RectangleF]::new(
+        $bounds.X + $localLayout.StatusRect.X,
+        $bounds.Y + $localLayout.StatusRect.Y,
+        $localLayout.StatusRect.Width,
+        $localLayout.StatusRect.Height
+    )
+    $statusRectI = [System.Drawing.Rectangle]::new(
+        [int][Math]::Floor($statusRect.X),
+        [int][Math]::Floor($statusRect.Y),
+        [int][Math]::Ceiling($statusRect.Width),
+        [int][Math]::Ceiling($statusRect.Height)
+    )
+
+    $statusBrush = New-Object System.Drawing.SolidBrush($statusVisual.Fill)
+    $statusPen = New-Object System.Drawing.Pen($statusVisual.Border, 1.3)
+    $statusPath = New-RoundedRectPath -Rect $statusRect -Radius ([float]($statusRect.Height / 2.0))
+    try {
+        $g.FillPath($statusBrush, $statusPath)
+        $g.DrawPath($statusPen, $statusPath)
+        [System.Windows.Forms.TextRenderer]::DrawText($g, $localLayout.StatusText, $font, $statusRectI, $statusVisual.Text, $textFlags)
+    }
+    finally {
+        $statusPath.Dispose()
+        $statusBrush.Dispose()
+        $statusPen.Dispose()
+    }
+
+    if (($state -band [System.Windows.Forms.DrawItemState]::Focus) -eq [System.Windows.Forms.DrawItemState]::Focus) {
+        $DrawEventArgs.DrawFocusRectangle()
+    }
+}
+
 function Get-MatchDisplayText {
     param([Parameter(Mandatory = $true)]$Match)
 
@@ -1013,6 +1447,7 @@ function Refresh-MatchList {
     $division = Get-CurrentDivision
     $list = $script:App.Controls.MatchList
     $selectedMatchId = $script:App.AppState.SelectedMatchId
+    $script:App.RenderCache.MatchLayouts.Clear()
 
     $list.BeginUpdate()
     $list.Items.Clear()
@@ -2015,6 +2450,48 @@ function Build-MainForm {
     $matchList.Dock = 'Fill'
     $matchList.SelectionMode = [System.Windows.Forms.SelectionMode]::MultiExtended
     $matchList.IntegralHeight = $false
+    $matchList.DrawMode = [System.Windows.Forms.DrawMode]::OwnerDrawVariable
+    $matchList.ItemHeight = 30
+
+    $matchList.Add_MeasureItem({
+        param($sender, $e)
+
+        if ($e.Index -lt 0 -or $e.Index -ge $sender.Items.Count) {
+            $e.ItemHeight = 30
+            return
+        }
+
+        $item = $sender.Items[$e.Index]
+        if (-not $item -or -not $item.Match) {
+            $e.ItemHeight = 30
+            return
+        }
+
+        $layout = Get-CachedMatchRenderLayout -Graphics $e.Graphics -Font $sender.Font -Match $item.Match -AvailableWidth $sender.ClientSize.Width
+        $e.ItemHeight = [Math]::Max(30, $layout.RowHeight)
+    })
+
+    $matchList.Add_DrawItem({
+        param($sender, $e)
+
+        if ($e.Index -lt 0 -or $e.Index -ge $sender.Items.Count) {
+            return
+        }
+
+        $item = $sender.Items[$e.Index]
+        if (-not $item) {
+            return
+        }
+
+        Draw-MatchListItem -DrawEventArgs $e -Item $item
+    })
+    $matchList.Add_SizeChanged({
+        param($sender, $e)
+        $script:App.RenderCache.MatchLayouts.Clear()
+        if ($sender) {
+            $sender.Invalidate()
+        }
+    })
 
     $actions = New-Object System.Windows.Forms.FlowLayoutPanel
     $actions.Dock = 'Bottom'
