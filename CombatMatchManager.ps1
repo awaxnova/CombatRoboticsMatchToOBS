@@ -533,6 +533,18 @@ function Get-CurrentMatch {
     return $list.SelectedItem.Match
 }
 
+function Get-SelectedMatches {
+    $list = $script:App.Controls.MatchList
+    $selected = @()
+    if (-not $list) { return $selected }
+    foreach ($item in $list.SelectedItems) {
+        if ($item -and $item.Match) {
+            $selected += $item.Match
+        }
+    }
+    return @($selected)
+}
+
 function Find-MatchById {
     param([string]$MatchId)
 
@@ -884,28 +896,36 @@ function Move-SelectedMatch {
 
 function Delete-SelectedMatch {
     $division = Get-CurrentDivision
-    $match = Get-CurrentMatch
     $matchList = $script:App.Controls.MatchList
+    $selectedMatches = @(Get-SelectedMatches)
 
-    if (-not $division -or -not $match) {
-        Show-NonFatalWarning -Message 'Select a match to delete.'
+    if (-not $division -or $selectedMatches.Count -eq 0) {
+        Show-NonFatalWarning -Message 'Select one or more matches to delete.'
         return
     }
 
-    $confirm = [System.Windows.Forms.MessageBox]::Show('Delete selected match?', 'Confirm Delete', [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Question)
+    $count = $selectedMatches.Count
+    $label = if ($count -eq 1) { 'this match' } else { "these $count matches" }
+    $confirmText = ('Delete {0}?' -f $label)
+    $confirm = [System.Windows.Forms.MessageBox]::Show($confirmText, 'Confirm Delete', [System.Windows.Forms.MessageBoxButtons]::YesNo, [System.Windows.Forms.MessageBoxIcon]::Question)
     if ($confirm -ne [System.Windows.Forms.DialogResult]::Yes) {
         return
     }
 
+    $selectedIds = @{}
+    foreach ($m in $selectedMatches) {
+        $selectedIds[$m.Id] = $true
+    }
+
     $remaining = @()
     foreach ($m in $division.Matches) {
-        if ($m.Id -ne $match.Id) {
+        if (-not $selectedIds.ContainsKey($m.Id)) {
             $remaining += $m
         }
     }
     $division.Matches = $remaining
 
-    if ($script:App.AppState.LiveMatchId -eq $match.Id) {
+    if ($selectedIds.ContainsKey([string]$script:App.AppState.LiveMatchId)) {
         $script:App.AppState.LiveMatchId = $null
         Clear-ObsOutputFiles
     }
@@ -914,7 +934,7 @@ function Delete-SelectedMatch {
     $script:App.AppState.SelectedMatchId = $null
 
     Save-AllState
-    Write-Log -Message "Deleted match '$($match.Id)' from division '$($division.Name)'"
+    Write-Log -Message "Deleted $count match(es) from division '$($division.Name)'"
 
     Refresh-MatchList
     if ($matchList.Items.Count -gt 0) {
@@ -1087,6 +1107,7 @@ function Build-MainForm {
 
     $matchList = New-Object System.Windows.Forms.ListBox
     $matchList.Dock = 'Fill'
+    $matchList.SelectionMode = [System.Windows.Forms.SelectionMode]::MultiExtended
     $matchList.IntegralHeight = $false
 
     $actions = New-Object System.Windows.Forms.FlowLayoutPanel

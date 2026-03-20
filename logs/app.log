@@ -123,3 +123,52 @@
 [2026-03-20 13:45:08] [INFO] Deleted match 'c2ee10c0-8b1b-4d92-8888-a0a47797a820' from division 'intermediatePLANT'
 [2026-03-20 13:45:11] [INFO] Saved match plans to data\matchPlans.json
 [2026-03-20 13:45:11] [INFO] Deleted match '94fc406a-bc79-45a5-9f1d-f13f1e7090da' from division 'intermediatePLANT'
+[2026-03-20 13:53:30] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:53:30] [INFO] Application shutdown
+[2026-03-20 13:53:35] [INFO] Application startup
+[2026-03-20 13:53:35] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 13:53:35] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 13:53:35] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 13:53:35] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 13:53:35] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 13:53:35] [INFO] Cleared OBS output files
+[2026-03-20 13:54:31] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:54:31] [INFO] Application shutdown
+[2026-03-20 13:54:38] [INFO] Application startup
+[2026-03-20 13:54:38] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 13:54:38] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 13:54:38] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 13:54:38] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 13:54:38] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 13:54:39] [INFO] Cleared OBS output files
+[2026-03-20 13:54:44] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:54:44] [INFO] Deleted 2 match(es) from division 'intermediatePLANT'
+[2026-03-20 13:54:47] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:54:47] [INFO] Created match 'ea0a3be3-694e-44a0-8403-26ac999ea4bd' in division 'intermediatePLANT'
+[2026-03-20 13:54:49] [WARN] Selected bot(s) already appear in other matches: The Robocelot, Revenge of the wedge.
+[2026-03-20 13:54:49] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:54:49] [INFO] Created match 'ea78628d-07d9-4b62-8238-0724d5e476de' in division 'intermediatePLANT'
+[2026-03-20 13:54:54] [WARN] Selected bot(s) already appear in other matches: Flash Fang, Grey Menace, Replacement Character.
+[2026-03-20 13:54:54] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:54:54] [INFO] Created match '17a5b902-a780-426c-b340-974142c7f8a9' in division 'intermediatePLANT'
+[2026-03-20 13:54:56] [WARN] Selected bot(s) already appear in other matches: Wildfire, Concrete Cooper.
+[2026-03-20 13:54:56] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:54:56] [INFO] Created match 'ecac5730-5ab2-4bcc-8617-5b2dc16485a3' in division 'intermediatePLANT'
+[2026-03-20 13:54:58] [WARN] Selected bot(s) already appear in other matches: Wildfire, Concrete Cooper, PAIN.
+[2026-03-20 13:54:58] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:54:58] [INFO] Created match '7bbcf857-ddbd-47c7-8952-ec1402a1a18d' in division 'intermediatePLANT'
+[2026-03-20 13:55:30] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:55:30] [INFO] Application shutdown
+[2026-03-20 13:56:22] [INFO] Application startup
+[2026-03-20 13:56:23] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 13:56:23] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 13:56:23] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 13:56:23] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 13:56:23] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 13:56:23] [INFO] Cleared OBS output files
+[2026-03-20 13:56:27] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:56:27] [INFO] Deleted 1 match(es) from division 'intermediatePLANT'
+[2026-03-20 13:56:31] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:56:31] [INFO] Deleted 2 match(es) from division 'intermediatePLANT'
+[2026-03-20 13:56:34] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:56:34] [INFO] Deleted 3 match(es) from division 'intermediatePLANT'

@@ -36,14 +36,14 @@ Tiny Menace,Team Gamma,3
 ## Match Management
 - Select a division
 - Multi-select bots and create a match (2+ bots required)
-- Reorder, edit, delete, mark done/queued
+- Reorder, edit, delete (single or multi-select), mark done/queued
 - Set one match live globally
 
 Keyboard shortcuts:
 - `Enter` set selected match live (when match list is focused)
 - `Ctrl+Up` move match up
 - `Ctrl+Down` move match down
-- `Delete` delete selected match
+- `Delete` delete selected match(es)
 - `Ctrl+L` clear live
 - `Ctrl+R` reload divisions
 - `Ctrl+N` create match from selected bots
