@@ -416,6 +416,20 @@ function Write-OutputFile {
     Set-Content -LiteralPath $path -Value $Value -Encoding UTF8
 }
 
+function Get-ObsBotOutputMaxIndex {
+    $maxIndex = 0
+    $files = @(Get-ChildItem -LiteralPath $script:App.Paths.OutputDir -Filter 'current_bot_*.txt' -File -ErrorAction SilentlyContinue)
+    foreach ($file in $files) {
+        if ($file.BaseName -match '^current_bot_(\d+)$') {
+            $idx = [int]$Matches[1]
+            if ($idx -gt $maxIndex) {
+                $maxIndex = $idx
+            }
+        }
+    }
+    return $maxIndex
+}
+
 function Set-ObsPreview {
     param([hashtable]$Values)
 
@@ -441,6 +455,7 @@ function Write-ObsOutputFiles {
         $divisionText = if ([string]::IsNullOrWhiteSpace([string]$Match.ArenaLabel)) { $Division.Name } else { [string]$Match.ArenaLabel }
         $matchText = "Match $($Match.MatchNumber)"
         $bots = @(ConvertTo-SafeArray -Value $Match.Bots)
+        $slotCount = [Math]::Max(6, [Math]::Max($bots.Count, (Get-ObsBotOutputMaxIndex)))
 
         $values = [ordered]@{
             Division = $divisionText
@@ -463,8 +478,9 @@ function Write-ObsOutputFiles {
         Write-OutputFile -Name 'current_match.txt' -Value $values.Match
         Write-OutputFile -Name 'current_status.txt' -Value $values.Status
         Write-OutputFile -Name 'current_vs.txt' -Value $values.Vs
-        for ($i = 1; $i -le 6; $i++) {
-            Write-OutputFile -Name "current_bot_$i.txt" -Value $values["Bot$i"]
+        for ($i = 1; $i -le $slotCount; $i++) {
+            $botValue = if ($i -le $bots.Count) { [string]$bots[$i - 1] } else { '' }
+            Write-OutputFile -Name "current_bot_$i.txt" -Value $botValue
         }
 
         Set-ObsPreview -Values $values
@@ -479,11 +495,13 @@ function Write-ObsOutputFiles {
 
 function Clear-ObsOutputFiles {
     try {
+        $slotCount = [Math]::Max(6, (Get-ObsBotOutputMaxIndex))
+
         Write-OutputFile -Name 'current_division.txt' -Value ''
         Write-OutputFile -Name 'current_match.txt' -Value ''
         Write-OutputFile -Name 'current_status.txt' -Value ''
         Write-OutputFile -Name 'current_vs.txt' -Value ''
-        for ($i = 1; $i -le 6; $i++) {
+        for ($i = 1; $i -le $slotCount; $i++) {
             Write-OutputFile -Name "current_bot_$i.txt" -Value ''
         }
 
@@ -950,9 +968,9 @@ function Set-SelectedMatchStatus {
         Clear-ObsOutputFiles
     }
     elseif ($wasLive -and $Status -eq 'Done') {
-        # Preferred event flow: marking a live match done does not clear the live output.
-        $script:App.AppState.LiveMatchId = $match.Id
-        Write-ObsOutputFiles -Division $division -Match $match
+        # Match completed: clear live state and blank OBS output files.
+        $script:App.AppState.LiveMatchId = $null
+        Clear-ObsOutputFiles
     }
 
     Save-AllState

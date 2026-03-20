@@ -97,3 +97,29 @@
 [2026-03-20 13:41:05] [INFO] Cleared OBS output files
 [2026-03-20 13:41:05] [INFO] Saved match plans to data\matchPlans.json
 [2026-03-20 13:41:05] [INFO] Cleared live match
+[2026-03-20 13:44:21] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:44:21] [INFO] Application shutdown
+[2026-03-20 13:44:25] [INFO] Application startup
+[2026-03-20 13:44:25] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 13:44:25] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 13:44:25] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 13:44:25] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 13:44:25] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 13:44:25] [INFO] Cleared OBS output files
+[2026-03-20 13:44:33] [WARN] Selected bot(s) already appear in other matches: Flash Fang, The Stray.
+[2026-03-20 13:44:33] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:44:33] [INFO] Created match '94fc406a-bc79-45a5-9f1d-f13f1e7090da' in division 'intermediatePLANT'
+[2026-03-20 13:44:35] [INFO] Wrote OBS output files for live match 'Match 4' in 'intermediatePLANT'
+[2026-03-20 13:44:35] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:44:35] [INFO] Set live match '94fc406a-bc79-45a5-9f1d-f13f1e7090da' in division 'intermediatePLANT'
+[2026-03-20 13:44:46] [WARN] Selected bot(s) already appear in other matches: Snow Leopard, Flash Fang, The Stray, Grey Menace, Cement Sam.
+[2026-03-20 13:44:46] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:44:46] [INFO] Created match 'c2ee10c0-8b1b-4d92-8888-a0a47797a820' in division 'intermediatePLANT'
+[2026-03-20 13:44:48] [INFO] Wrote OBS output files for live match 'Match 5' in 'intermediatePLANT'
+[2026-03-20 13:44:48] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:44:48] [INFO] Set live match 'c2ee10c0-8b1b-4d92-8888-a0a47797a820' in division 'intermediatePLANT'
+[2026-03-20 13:45:08] [INFO] Cleared OBS output files
+[2026-03-20 13:45:08] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:45:08] [INFO] Deleted match 'c2ee10c0-8b1b-4d92-8888-a0a47797a820' from division 'intermediatePLANT'
+[2026-03-20 13:45:11] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:45:11] [INFO] Deleted match '94fc406a-bc79-45a5-9f1d-f13f1e7090da' from division 'intermediatePLANT'

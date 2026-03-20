@@ -20,7 +20,8 @@ The app auto-creates these folders if missing:
 ## CSV Input
 Put one CSV per division in `divisions/`.
 - Division name = filename without `.csv`
-- Required column: `BotName`
+- Preferred headered format includes `BotName`
+- Headerless rows are also supported (first column = bot name, second = team)
 - Optional columns: `Team`, `Seed`, `Driver`, `Notes`, `Arena`, `Division`
 - Blank `BotName` rows are ignored
 
@@ -51,7 +52,7 @@ Keyboard shortcuts:
 When a live match is set, files in `output/` are overwritten:
 - `current_division.txt`
 - `current_match.txt`
-- `current_bot_1.txt` ... `current_bot_6.txt`
+- `current_bot_1.txt` ... `current_bot_N.txt` (one per bot; minimum 6 files maintained)
 - `current_status.txt`
 - `current_vs.txt`
 
@@ -59,6 +60,7 @@ Rules:
 - Unused bot files are blank
 - `current_status.txt` = `LIVE` when a match is live, otherwise blank
 - `current_vs.txt` = `vs` for 2 bots, `Battle Royale` for 3+ bots, blank when no live match
+- Marking a live match `Done` clears live OBS output files
 
 ## Persistence
 - Match plans: `data/matchPlans.json`
