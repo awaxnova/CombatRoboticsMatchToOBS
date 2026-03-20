@@ -115,13 +115,38 @@ function Import-CsvFlexible {
     }
 }
 
+function Import-DivisionRows {
+    param([Parameter(Mandatory = $true)][string]$Path)
+
+    $rows = Import-CsvFlexible -Path $Path
+    if (-not $rows) {
+        return @()
+    }
+
+    $firstRow = $rows | Select-Object -First 1
+    $propertyNames = @($firstRow.PSObject.Properties | ForEach-Object { [string]$_.Name })
+    $normalizedNames = @($propertyNames | ForEach-Object { $_.Trim().TrimStart([char]0xFEFF).ToLowerInvariant() })
+
+    if ($normalizedNames -contains 'botname') {
+        return $rows
+    }
+
+    # Fallback for headerless roster files where each line is bot/team data.
+    try {
+        return Import-Csv -LiteralPath $Path -Header @('BotName', 'Team', 'Seed', 'Driver', 'Notes', 'Arena', 'Division') -Encoding UTF8
+    }
+    catch {
+        return Import-Csv -LiteralPath $Path -Header @('BotName', 'Team', 'Seed', 'Driver', 'Notes', 'Arena', 'Division') -Encoding Default
+    }
+}
+
 function Load-DivisionCsvFiles {
     $divisions = @()
     $csvFiles = @(Get-ChildItem -LiteralPath $script:App.Paths.DivisionsDir -Filter '*.csv' -File | Sort-Object Name)
 
     foreach ($file in $csvFiles) {
         try {
-            $rows = Import-CsvFlexible -Path $file.FullName
+            $rows = Import-DivisionRows -Path $file.FullName
             if (-not $rows) { $rows = @() }
 
             $divisionName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
@@ -133,7 +158,7 @@ function Load-DivisionCsvFiles {
                 $rowIndex++
                 $props = $row.PSObject.Properties
 
-                $botNameProp = $props | Where-Object { $_.Name -eq 'BotName' } | Select-Object -First 1
+                $botNameProp = $props | Where-Object { ([string]$_.Name).Trim().TrimStart([char]0xFEFF).ToLowerInvariant() -eq 'botname' } | Select-Object -First 1
                 if (-not $botNameProp) {
                     continue
                 }
@@ -147,7 +172,8 @@ function Load-DivisionCsvFiles {
 
                 $rawData = @{}
                 foreach ($p in $props) {
-                    if ($p.Name -notin @('BotName', 'Team', 'Seed', 'Driver', 'Notes', 'Arena', 'Division')) {
+                    $normalizedName = ([string]$p.Name).Trim().TrimStart([char]0xFEFF).ToLowerInvariant()
+                    if ($normalizedName -notin @('botname', 'team', 'seed', 'driver', 'notes', 'arena', 'division')) {
                         $rawData[$p.Name] = [string]$p.Value
                     }
                 }
@@ -383,7 +409,7 @@ function Reconcile-DivisionsAndMatches {
 function Write-OutputFile {
     param(
         [Parameter(Mandatory = $true)][string]$Name,
-        [Parameter(Mandatory = $true)][string]$Value
+        [Parameter(Mandatory = $true)][AllowEmptyString()][string]$Value
     )
 
     $path = Join-Path $script:App.Paths.OutputDir $Name
@@ -1243,7 +1269,8 @@ function Build-MainForm {
     $form.Add_KeyDown({
         param($sender, $e)
 
-        $active = $form.ActiveControl
+        $activeHost = if ($sender -is [System.Windows.Forms.Form]) { $sender } else { $script:App.Controls.Form }
+        $active = $activeHost.ActiveControl
         if ($active -is [System.Windows.Forms.TextBox] -and -not $active.ReadOnly) {
             return
         }

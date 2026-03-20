@@ -21,3 +21,46 @@
 [2026-03-20 13:17:15] [WARN] Failed clearing OBS output files: Cannot bind argument to parameter 'Value' because it is an empty string.
 [2026-03-20 13:17:17] [INFO] Saved match plans to data\matchPlans.json
 [2026-03-20 13:17:17] [INFO] Reloaded divisions from CSV files
+[2026-03-20 13:18:12] [INFO] Loaded division 'advancedPLANT' with 0 bots from advancedPLANT.csv
+[2026-03-20 13:18:12] [INFO] Loaded division 'beginnerPLANT' with 0 bots from beginnerPLANT.csv
+[2026-03-20 13:18:12] [INFO] Loaded division 'botsIQ_15lbs' with 0 bots from botsIQ_15lbs.csv
+[2026-03-20 13:18:12] [INFO] Loaded division 'intermediatePLANT' with 0 bots from intermediatePLANT.csv
+[2026-03-20 13:18:12] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 13:18:12] [ERROR] Failed clearing OBS output files: Cannot bind argument to parameter 'Value' because it is an empty string.
+[2026-03-20 13:18:12] [WARN] Failed clearing OBS output files: Cannot bind argument to parameter 'Value' because it is an empty string.
+[2026-03-20 13:19:07] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:19:07] [INFO] Reloaded divisions from CSV files
+[2026-03-20 13:19:10] [WARN] Select a match to set live.
+[2026-03-20 13:19:42] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:19:42] [INFO] Application shutdown
+[2026-03-20 13:19:46] [INFO] Application startup
+[2026-03-20 13:19:46] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 13:19:46] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 13:19:46] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 13:19:46] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 13:19:46] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 13:19:46] [ERROR] Failed clearing OBS output files: Collection was modified; enumeration operation may not execute.
+[2026-03-20 13:19:46] [WARN] Failed clearing OBS output files: Collection was modified; enumeration operation may not execute.
+[2026-03-20 13:37:35] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:37:35] [INFO] Application shutdown
+[2026-03-20 13:37:40] [INFO] Application startup
+[2026-03-20 13:37:41] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 13:37:41] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 13:37:41] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 13:37:41] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 13:37:41] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 13:37:41] [ERROR] Failed clearing OBS output files: Collection was modified; enumeration operation may not execute.
+[2026-03-20 13:37:41] [WARN] Failed clearing OBS output files: Collection was modified; enumeration operation may not execute.
+[2026-03-20 13:37:46] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:37:46] [INFO] Created match '70aef7e9-7ff9-4e5b-845b-9e723d44250c' in division 'intermediatePLANT'
+[2026-03-20 13:37:49] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:37:49] [INFO] Created match '1edb349e-62cb-4407-9638-b2b69e6932ff' in division 'intermediatePLANT'
+[2026-03-20 13:37:51] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:37:51] [INFO] Created match '0d5f7aef-b220-4465-9bb0-c523cc297e78' in division 'intermediatePLANT'
+[2026-03-20 13:37:54] [ERROR] Failed writing OBS output files: Collection was modified; enumeration operation may not execute.
+[2026-03-20 13:37:54] [WARN] Failed writing OBS output files: Collection was modified; enumeration operation may not execute.
+[2026-03-20 13:38:14] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:38:14] [INFO] Set live match '70aef7e9-7ff9-4e5b-845b-9e723d44250c' in division 'intermediatePLANT'
+[2026-03-20 13:38:16] [WARN] Selected bot(s) already appear in other matches: Revenge of the wedge, OVER.
+[2026-03-20 13:38:16] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:38:16] [INFO] Created match '43520cbb-02d8-47d4-8be4-d6c63c673da6' in division 'intermediatePLANT'
