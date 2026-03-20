@@ -1,0 +1,23 @@
+﻿[2026-03-20 13:10:48] [INFO] Application startup
+[2026-03-20 13:10:49] [ERROR] Failed clearing OBS output files: Cannot bind argument to parameter 'Value' because it is an empty string.
+[2026-03-20 13:10:49] [WARN] Failed clearing OBS output files: Cannot bind argument to parameter 'Value' because it is an empty string.
+[2026-03-20 13:11:03] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:11:03] [INFO] Application shutdown
+[2026-03-20 13:16:41] [INFO] Application startup
+[2026-03-20 13:16:41] [INFO] Loaded division 'advancedPLANT' with 0 bots from advancedPLANT.csv
+[2026-03-20 13:16:41] [INFO] Loaded division 'beginnerPLANT' with 0 bots from beginnerPLANT.csv
+[2026-03-20 13:16:41] [INFO] Loaded division 'botsIQ_15lbs' with 0 bots from botsIQ_15lbs.csv
+[2026-03-20 13:16:41] [INFO] Loaded division 'intermediatePLANT' with 0 bots from intermediatePLANT.csv
+[2026-03-20 13:16:41] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 13:16:41] [ERROR] Failed clearing OBS output files: Cannot bind argument to parameter 'Value' because it is an empty string.
+[2026-03-20 13:16:41] [WARN] Failed clearing OBS output files: Cannot bind argument to parameter 'Value' because it is an empty string.
+[2026-03-20 13:17:01] [WARN] Select a match to edit.
+[2026-03-20 13:17:15] [INFO] Loaded division 'advancedPLANT' with 0 bots from advancedPLANT.csv
+[2026-03-20 13:17:15] [INFO] Loaded division 'beginnerPLANT' with 0 bots from beginnerPLANT.csv
+[2026-03-20 13:17:15] [INFO] Loaded division 'botsIQ_15lbs' with 0 bots from botsIQ_15lbs.csv
+[2026-03-20 13:17:15] [INFO] Loaded division 'intermediatePLANT' with 0 bots from intermediatePLANT.csv
+[2026-03-20 13:17:15] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 13:17:15] [ERROR] Failed clearing OBS output files: Cannot bind argument to parameter 'Value' because it is an empty string.
+[2026-03-20 13:17:15] [WARN] Failed clearing OBS output files: Cannot bind argument to parameter 'Value' because it is an empty string.
+[2026-03-20 13:17:17] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:17:17] [INFO] Reloaded divisions from CSV files
