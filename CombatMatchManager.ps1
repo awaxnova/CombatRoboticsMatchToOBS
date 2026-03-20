@@ -816,6 +816,142 @@ function Get-SelectedBotNames {
     return $bots
 }
 
+function Show-TextInputDialog {
+    param(
+        [Parameter(Mandatory = $true)][string]$Title,
+        [Parameter(Mandatory = $true)][string]$Prompt,
+        [string]$InitialValue = ''
+    )
+
+    $dialog = New-Object System.Windows.Forms.Form
+    $dialog.Text = $Title
+    $dialog.Size = New-Object System.Drawing.Size(760, 170)
+    $dialog.StartPosition = 'CenterParent'
+    $dialog.FormBorderStyle = 'FixedDialog'
+    $dialog.MaximizeBox = $false
+    $dialog.MinimizeBox = $false
+
+    $label = New-Object System.Windows.Forms.Label
+    $label.Text = $Prompt
+    $label.AutoSize = $true
+    $label.Location = New-Object System.Drawing.Point(12, 14)
+
+    $textbox = New-Object System.Windows.Forms.TextBox
+    $textbox.Location = New-Object System.Drawing.Point(12, 40)
+    $textbox.Size = New-Object System.Drawing.Size(720, 24)
+    $textbox.Anchor = 'Top, Left, Right'
+    $textbox.Text = $InitialValue
+
+    $ok = New-Object System.Windows.Forms.Button
+    $ok.Text = 'Import'
+    $ok.Location = New-Object System.Drawing.Point(572, 78)
+    $ok.Size = New-Object System.Drawing.Size(76, 28)
+
+    $cancel = New-Object System.Windows.Forms.Button
+    $cancel.Text = 'Cancel'
+    $cancel.Location = New-Object System.Drawing.Point(656, 78)
+    $cancel.Size = New-Object System.Drawing.Size(76, 28)
+
+    $dialog.AcceptButton = $ok
+    $dialog.CancelButton = $cancel
+
+    $ok.Add_Click({
+        $dialog.DialogResult = [System.Windows.Forms.DialogResult]::OK
+        $dialog.Close()
+    })
+
+    $cancel.Add_Click({
+        $dialog.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
+        $dialog.Close()
+    })
+
+    $dialog.Controls.Add($label)
+    $dialog.Controls.Add($textbox)
+    $dialog.Controls.Add($ok)
+    $dialog.Controls.Add($cancel)
+
+    [void]$dialog.ShowDialog($script:App.Controls.Form)
+    if ($dialog.DialogResult -ne [System.Windows.Forms.DialogResult]::OK) {
+        return $null
+    }
+
+    return ([string]$textbox.Text).Trim()
+}
+
+function Convert-ChallongeSvgToMatches {
+    param([Parameter(Mandatory = $true)][string]$SvgText)
+
+    $xml = New-Object System.Xml.XmlDocument
+    $xml.XmlResolver = $null
+    $xml.LoadXml($SvgText)
+
+    $matchNodes = $xml.SelectNodes("//*[local-name()='g' and contains(concat(' ', normalize-space(@class), ' '), ' match ')]")
+    $parsed = @()
+    $ordinal = 0
+
+    foreach ($node in $matchNodes) {
+        $ordinal++
+
+        $identifier = 0
+        $identifierAttr = $node.Attributes['data-identifier']
+        if ($identifierAttr -and -not [string]::IsNullOrWhiteSpace([string]$identifierAttr.Value)) {
+            [void][int]::TryParse([string]$identifierAttr.Value, [ref]$identifier)
+        }
+
+        $x = 0.0
+        $y = 0.0
+        $transformAttr = $node.Attributes['transform']
+        if ($transformAttr -and ([string]$transformAttr.Value -match 'translate\(\s*(-?\d+(\.\d+)?)\s+(-?\d+(\.\d+)?)\s*\)')) {
+            [void][double]::TryParse([string]$Matches[1], [ref]$x)
+            [void][double]::TryParse([string]$Matches[3], [ref]$y)
+        }
+
+        $playerNodes = $node.SelectNodes(".//*[local-name()='svg' and contains(concat(' ', normalize-space(@class), ' '), ' match--player ')]")
+        $bots = @()
+        foreach ($playerNode in $playerNodes) {
+            $name = ''
+            $titleNode = $playerNode.SelectSingleNode("./*[local-name()='title']")
+            if ($titleNode) {
+                $name = ([string]$titleNode.InnerText).Trim()
+            }
+
+            if ([string]::IsNullOrWhiteSpace($name)) {
+                $nameNode = $playerNode.SelectSingleNode(".//*[local-name()='text' and contains(concat(' ', normalize-space(@class), ' '), ' match--player-name ')]")
+                if ($nameNode) {
+                    $name = ([string]$nameNode.InnerText).Trim()
+                }
+            }
+
+            $ignore = $false
+            if ([string]::IsNullOrWhiteSpace($name)) { $ignore = $true }
+            if ($name -match '^(TBD|BYE)$') { $ignore = $true }
+            if ($name -match '^(Winner|Loser)\s+of\b') { $ignore = $true }
+
+            if (-not $ignore -and -not ($bots -contains $name)) {
+                $bots += $name
+            }
+        }
+
+        if ($bots.Count -ge 2) {
+            $parsed += [PSCustomObject]@{
+                Identifier = $identifier
+                X          = $x
+                Y          = $y
+                Ordinal    = $ordinal
+                Bots       = @($bots)
+            }
+        }
+    }
+
+    $ordered = $parsed | Sort-Object `
+        @{ Expression = { if ([int]$_.Identifier -gt 0) { 0 } else { 1 } } }, `
+        @{ Expression = { [int]$_.Identifier } }, `
+        @{ Expression = { [double]$_.X } }, `
+        @{ Expression = { [double]$_.Y } }, `
+        @{ Expression = { [int]$_.Ordinal } }
+    return @($ordered)
+}
+
 function Create-MatchFromSelection {
     $division = Get-CurrentDivision
     if (-not $division) {
@@ -862,6 +998,113 @@ function Create-MatchFromSelection {
     Write-Log -Message "Created match '$($match.Id)' in division '$($division.Name)'"
 
     Refresh-MatchList
+}
+
+function Import-ChallongeSvgMatches {
+    $division = Get-CurrentDivision
+    if (-not $division) {
+        Show-NonFatalWarning -Message 'Select a division first.'
+        return
+    }
+
+    $source = Show-TextInputDialog `
+        -Title 'Import Challonge SVG' `
+        -Prompt 'Paste a Challonge printer-friendly SVG URL or a local .svg path:' `
+        -InitialValue 'https://challonge.com/your_tournament.svg'
+
+    if ([string]::IsNullOrWhiteSpace($source)) {
+        return
+    }
+
+    $svgText = $null
+    try {
+        if ($source -match '^(?i)https?://') {
+            $response = Invoke-WebRequest -Uri $source -UseBasicParsing -TimeoutSec 30
+            $svgText = [string]$response.Content
+        }
+        else {
+            if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
+                Show-NonFatalWarning -Message "SVG source not found: $source"
+                return
+            }
+            $svgText = Get-Content -LiteralPath $source -Raw -Encoding UTF8
+        }
+    }
+    catch {
+        $msg = "Failed to load Challonge SVG: $($_.Exception.Message)"
+        Write-Log -Level 'ERROR' -Message $msg
+        Show-NonFatalWarning -Message $msg
+        return
+    }
+
+    $imported = @()
+    try {
+        $imported = Convert-ChallongeSvgToMatches -SvgText $svgText
+    }
+    catch {
+        $msg = "Failed to parse Challonge SVG: $($_.Exception.Message)"
+        Write-Log -Level 'ERROR' -Message $msg
+        Show-NonFatalWarning -Message $msg
+        return
+    }
+
+    if ($imported.Count -eq 0) {
+        Show-NonFatalWarning -Message 'No valid 2+ bot matches were found in the SVG.'
+        return
+    }
+
+    $confirm = [System.Windows.Forms.MessageBox]::Show(
+        "Import $($imported.Count) match(es) into division '$($division.Name)'? This appends to existing matches.",
+        'Confirm SVG Import',
+        [System.Windows.Forms.MessageBoxButtons]::YesNo,
+        [System.Windows.Forms.MessageBoxIcon]::Question
+    )
+    if ($confirm -ne [System.Windows.Forms.DialogResult]::Yes) {
+        return
+    }
+
+    $now = (Get-Date).ToString('o')
+    $addedCount = 0
+    foreach ($entry in $imported) {
+        $botNames = @()
+        foreach ($name in (ConvertTo-SafeArray -Value $entry.Bots)) {
+            $trimmed = ([string]$name).Trim()
+            if (-not [string]::IsNullOrWhiteSpace($trimmed) -and -not ($botNames -contains $trimmed)) {
+                $botNames += $trimmed
+            }
+        }
+
+        if ($botNames.Count -lt 2) {
+            continue
+        }
+
+        $division.Matches += [PSCustomObject]@{
+            Id          = ([guid]::NewGuid()).Guid
+            DivisionId  = $division.Id
+            MatchNumber = 0
+            Bots        = @($botNames)
+            Status      = 'Queued'
+            ArenaLabel  = $division.Name
+            Notes       = "Imported from Challonge SVG: $source"
+            CreatedAt   = $now
+            UpdatedAt   = $now
+        }
+        $addedCount++
+    }
+
+    if ($addedCount -eq 0) {
+        Show-NonFatalWarning -Message 'No matches were added from the SVG.'
+        return
+    }
+
+    Renumber-Matches -Division $division
+    $script:App.AppState.SelectedMatchId = $null
+    Save-AllState
+    Refresh-MatchList
+
+    $status = "Imported $addedCount match(es) from Challonge SVG into '$($division.Name)'."
+    Set-StatusText -Text $status
+    Write-Log -Message $status
 }
 
 function Move-SelectedMatch {
@@ -1147,7 +1390,11 @@ function Build-MainForm {
     $btnQueued.Text = 'Mark Queued'
     $btnQueued.Width = 95
 
-    foreach ($btn in @($btnSetLive, $btnClearLive, $btnUp, $btnDown, $btnEdit, $btnDelete, $btnDone, $btnQueued)) {
+    $btnImportSvg = New-Object System.Windows.Forms.Button
+    $btnImportSvg.Text = 'Import Challonge SVG'
+    $btnImportSvg.Width = 145
+
+    foreach ($btn in @($btnSetLive, $btnClearLive, $btnUp, $btnDown, $btnEdit, $btnDelete, $btnDone, $btnQueued, $btnImportSvg)) {
         [void]$actions.Controls.Add($btn)
     }
 
@@ -1292,6 +1539,7 @@ function Build-MainForm {
     $btnEdit.Add_Click({ Edit-SelectedMatch })
     $btnDone.Add_Click({ Set-SelectedMatchStatus -Status 'Done' })
     $btnQueued.Add_Click({ Set-SelectedMatchStatus -Status 'Queued' })
+    $btnImportSvg.Add_Click({ Import-ChallongeSvgMatches })
 
     $btnSetLive.Add_Click({
         $division = Get-CurrentDivision
@@ -1328,6 +1576,12 @@ function Build-MainForm {
 
         if ($e.Control -and $e.KeyCode -eq [System.Windows.Forms.Keys]::L) {
             Clear-LiveMatch
+            $e.SuppressKeyPress = $true
+            return
+        }
+
+        if ($e.Control -and $e.KeyCode -eq [System.Windows.Forms.Keys]::I) {
+            Import-ChallongeSvgMatches
             $e.SuppressKeyPress = $true
             return
         }

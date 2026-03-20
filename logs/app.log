@@ -172,3 +172,14 @@
 [2026-03-20 13:56:31] [INFO] Deleted 2 match(es) from division 'intermediatePLANT'
 [2026-03-20 13:56:34] [INFO] Saved match plans to data\matchPlans.json
 [2026-03-20 13:56:34] [INFO] Deleted 3 match(es) from division 'intermediatePLANT'
+[2026-03-20 13:58:04] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:58:04] [INFO] Created match '911a0a31-a810-4345-8940-d06489ba20fa' in division 'botsIQ_15lbs'
+[2026-03-20 14:03:56] [INFO] Application startup
+[2026-03-20 14:03:57] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 14:03:57] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 14:03:57] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 14:03:57] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 14:03:57] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 14:03:57] [INFO] Cleared OBS output files
+[2026-03-20 14:04:11] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:04:11] [INFO] Imported 9 match(es) from Challonge SVG into 'advancedPLANT'.

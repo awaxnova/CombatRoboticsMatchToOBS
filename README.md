@@ -47,6 +47,13 @@ Keyboard shortcuts:
 - `Ctrl+L` clear live
 - `Ctrl+R` reload divisions
 - `Ctrl+N` create match from selected bots
+- `Ctrl+I` import matches from Challonge SVG
+
+## Challonge SVG Import
+- Use `Import Challonge SVG` in the match actions (or `Ctrl+I`)
+- Paste a printer-friendly Challonge SVG URL (for example `https://challonge.com/part_nyk_beetles.svg`) or a local `.svg` file path
+- The app parses bracket matches and appends found 2+ bot matches into the selected division as `Queued`
+- Placeholders (`TBD`, `BYE`, `Winner of ...`, `Loser of ...`) are skipped
 
 ## OBS Output Files
 When a live match is set, files in `output/` are overwritten:
