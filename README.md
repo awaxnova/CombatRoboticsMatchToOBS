@@ -36,6 +36,7 @@ Tiny Menace,Team Gamma,3
 ## Match Management
 - Select a division
 - Multi-select bots and create a match (2+ bots required)
+- Manage the bot list directly (add, rename, remove)
 - Reorder, edit, delete (single or multi-select), mark done/queued
 - Set one match live globally
 
@@ -47,12 +48,17 @@ Keyboard shortcuts:
 - `Ctrl+L` clear live
 - `Ctrl+R` reload divisions
 - `Ctrl+N` create match from selected bots
+- `Ctrl+B` add bot
+- `Ctrl+E` edit selected bot
 - `Ctrl+I` import matches from Challonge SVG
+- `Delete` removes selected bots when the bot list is focused
 
 ## Challonge SVG Import
 - Use `Import Challonge SVG` in the match actions (or `Ctrl+I`)
 - Paste a printer-friendly Challonge SVG URL (for example `https://challonge.com/part_nyk_beetles.svg`) or a local `.svg` file path
 - The app parses bracket matches and appends found 2+ bot matches into the selected division as `Queued`
+- Imported bot names are auto-added to that division's bot list
+- Duplicate bot names are deduped automatically (case/spacing-insensitive)
 - Placeholders (`TBD`, `BYE`, `Winner of ...`, `Loser of ...`) are skipped
 
 ## OBS Output Files
@@ -71,9 +77,10 @@ Rules:
 
 ## Persistence
 - Match plans: `data/matchPlans.json`
+- Bot roster overrides: `data/botOverrides.json`
 - UI/live state: `data/appState.json`
 
-State is saved immediately after create/edit/delete/reorder/live/status changes.
+State is saved immediately after bot or match create/edit/delete/reorder/live/status changes.
 
 ## Logs
 - Log file: `logs/app.log`

@@ -1,0 +1,94 @@
+﻿{
+    "Version":  1,
+    "SavedAt":  "2026-03-20T14:15:57.3357738-07:00",
+    "Divisions":  [
+                      {
+                          "DivisionName":  "advancedPLANT",
+                          "DivisionId":  "6f96782c-cfa8-c0e1-7d5c-2e64fd9d607e",
+                          "Bots":  [
+                                       "Dragster",
+                                       "Commander",
+                                       "Edgehog",
+                                       "Zica",
+                                       "Mega Volt",
+                                       "Snakebite",
+                                       "Donut of Doom",
+                                       "Claw \u0026 Order",
+                                       "Squritle Bot",
+                                       "BumbleBee",
+                                       "Kev",
+                                       "Anklebiter",
+                                       "Drunken Fist",
+                                       "Event Horizon",
+                                       "Ramiel",
+                                       "Ice Shadow",
+                                       "Sesame (Combat Ver.)"
+                                   ]
+                      },
+                      {
+                          "DivisionName":  "beginnerPLANT",
+                          "DivisionId":  "1dc0a257-978d-dbe6-d5ef-db6f8430c46f",
+                          "Bots":  [
+                                       "Traffic Cone",
+                                       "Side Quest",
+                                       "The Punchline",
+                                       "The Butter",
+                                       "Rookie Wrecker",
+                                       "Doorstop",
+                                       "shockwave",
+                                       "Anti Blaze",
+                                       "Roundhouse (West Park HS)",
+                                       "Green Goblin",
+                                       "Dad\u0027s Yoga Block",
+                                       "The Spinner",
+                                       "Bubble Trouble",
+                                       "Ice Sprite"
+                                   ]
+                      },
+                      {
+                          "DivisionName":  "botsIQ_15lbs",
+                          "DivisionId":  "29f55bbe-53ce-3f03-9586-348c2c3916bf",
+                          "Bots":  [
+                                       "Slightly Above Average",
+                                       "Dishwasher",
+                                       "Lunar Eclipse",
+                                       "Rev-3",
+                                       "Angular Aggression",
+                                       "Washing Machine",
+                                       "Iron Quackin",
+                                       "Overkill",
+                                       "Neo",
+                                       "Velocity",
+                                       "Nibbles",
+                                       "Hot Rush",
+                                       "Sawii",
+                                       "Scott"
+                                   ]
+                      },
+                      {
+                          "DivisionName":  "intermediatePLANT",
+                          "DivisionId":  "47826a70-08b0-01c8-c7c5-bc9655c48569",
+                          "Bots":  [
+                                       "Scooby Doo",
+                                       "Toaster",
+                                       "Baguette",
+                                       "Wyvern",
+                                       "Snow Leopard",
+                                       "Flash Fang",
+                                       "The Stray",
+                                       "Wildfire",
+                                       "Grey Menace",
+                                       "Replacement Character",
+                                       "Cement Sam",
+                                       "wittle baby wobot",
+                                       "Spinnamon Roll",
+                                       "Concrete Cooper",
+                                       "The Robocelot",
+                                       "Revenge of the wedge",
+                                       "OVER",
+                                       "PNK",
+                                       "PAIN"
+                                   ]
+                      }
+                  ]
+}

@@ -45,6 +45,7 @@ function Initialize-AppPaths {
         OutputDir     = Join-Path $root 'output'
         LogsDir       = Join-Path $root 'logs'
         MatchPlans    = Join-Path $root 'data\matchPlans.json'
+        BotOverrides  = Join-Path $root 'data\botOverrides.json'
         AppState      = Join-Path $root 'data\appState.json'
         LogFile       = Join-Path $root 'logs\app.log'
     }
@@ -97,6 +98,63 @@ function ConvertTo-SafeArray {
     if ($null -eq $Value) { return @() }
     if ($Value -is [System.Array]) { return @($Value) }
     return @($Value)
+}
+
+function Normalize-BotName {
+    param([string]$Name)
+
+    if ($null -eq $Name) { return '' }
+    return (($Name -replace '\s+', ' ').Trim())
+}
+
+function Get-BotNameKey {
+    param([string]$Name)
+    return (Normalize-BotName -Name $Name).ToLowerInvariant()
+}
+
+function New-BotRecord {
+    param(
+        [Parameter(Mandatory = $true)][string]$Name,
+        [string]$Team = '',
+        [string]$Seed = '',
+        [string]$Driver = '',
+        [string]$Notes = ''
+    )
+
+    $cleanName = Normalize-BotName -Name $Name
+    return [PSCustomObject]@{
+        Id      = ([guid]::NewGuid()).Guid
+        BotName = $cleanName
+        Team    = $Team
+        Seed    = $Seed
+        Driver  = $Driver
+        Notes   = $Notes
+        RawData = @{}
+    }
+}
+
+function Deduplicate-Bots {
+    param([Parameter(Mandatory = $true)]$Division)
+
+    $seen = @{}
+    $unique = @()
+    foreach ($bot in (ConvertTo-SafeArray -Value $Division.Bots)) {
+        $name = Normalize-BotName -Name ([string]$bot.BotName)
+        if ([string]::IsNullOrWhiteSpace($name)) {
+            continue
+        }
+
+        $key = Get-BotNameKey -Name $name
+        if ($seen.ContainsKey($key)) {
+            continue
+        }
+
+        $seen[$key] = $true
+        $bot.BotName = $name
+        $unique += $bot
+    }
+
+    $Division.Bots = $unique
 }
 
 function Import-CsvFlexible {
@@ -163,9 +221,7 @@ function Load-DivisionCsvFiles {
                     continue
                 }
 
-                $botName = [string]$botNameProp.Value
-                if ($null -eq $botName) { $botName = '' }
-                $botName = $botName.Trim()
+                $botName = Normalize-BotName -Name ([string]$botNameProp.Value)
                 if ([string]::IsNullOrWhiteSpace($botName)) {
                     continue
                 }
@@ -190,15 +246,17 @@ function Load-DivisionCsvFiles {
                 }
             }
 
-            $divisions += [PSCustomObject]@{
+            $division = [PSCustomObject]@{
                 Id            = $divisionId
                 Name          = $divisionName
                 SourceCsvPath = $file.FullName
                 Bots          = $bots
                 Matches       = @()
             }
+            Deduplicate-Bots -Division $division
+            $divisions += $division
 
-            Write-Log -Message "Loaded division '$divisionName' with $($bots.Count) bots from $($file.Name)"
+            Write-Log -Message "Loaded division '$divisionName' with $($division.Bots.Count) bots from $($file.Name)"
         }
         catch {
             $msg = "Failed to parse CSV '$($file.Name)': $($_.Exception.Message)"
@@ -286,6 +344,127 @@ function Save-MatchPlans {
     }
 }
 
+function Load-BotOverrides {
+    if (-not (Test-Path -LiteralPath $script:App.Paths.BotOverrides)) {
+        return @{}
+    }
+
+    try {
+        $json = Get-Content -LiteralPath $script:App.Paths.BotOverrides -Raw -Encoding UTF8
+        if ([string]::IsNullOrWhiteSpace($json)) {
+            return @{}
+        }
+
+        $parsed = ConvertFrom-Json -InputObject $json -ErrorAction Stop
+        $map = @{}
+        foreach ($entry in (ConvertTo-SafeArray -Value $parsed.Divisions)) {
+            $divisionName = [string]$entry.DivisionName
+            if ([string]::IsNullOrWhiteSpace($divisionName)) {
+                continue
+            }
+
+            $names = @()
+            foreach ($rawName in (ConvertTo-SafeArray -Value $entry.Bots)) {
+                $name = Normalize-BotName -Name ([string]$rawName)
+                if (-not [string]::IsNullOrWhiteSpace($name)) {
+                    $names += $name
+                }
+            }
+            $map[$divisionName] = $names
+        }
+
+        Write-Log -Message 'Loaded bot overrides from data\botOverrides.json'
+        return $map
+    }
+    catch {
+        $msg = "Failed to load bot overrides JSON: $($_.Exception.Message)"
+        Write-Log -Level 'ERROR' -Message $msg
+        if ($script:App.Controls.Form) {
+            Show-NonFatalWarning -Message $msg
+        }
+        return @{}
+    }
+}
+
+function Apply-BotOverrides {
+    param([hashtable]$Overrides)
+
+    if (-not $Overrides) { return }
+
+    foreach ($division in $script:App.Divisions) {
+        if (-not $Overrides.ContainsKey($division.Name)) {
+            continue
+        }
+
+        $sourceByKey = @{}
+        foreach ($bot in (ConvertTo-SafeArray -Value $division.Bots)) {
+            $key = Get-BotNameKey -Name ([string]$bot.BotName)
+            if ([string]::IsNullOrWhiteSpace($key)) { continue }
+            if (-not $sourceByKey.ContainsKey($key)) {
+                $sourceByKey[$key] = $bot
+            }
+        }
+
+        $newBots = @()
+        $seen = @{}
+        foreach ($rawName in (ConvertTo-SafeArray -Value $Overrides[$division.Name])) {
+            $name = Normalize-BotName -Name ([string]$rawName)
+            $key = Get-BotNameKey -Name $name
+            if ([string]::IsNullOrWhiteSpace($key) -or $seen.ContainsKey($key)) {
+                continue
+            }
+            $seen[$key] = $true
+
+            if ($sourceByKey.ContainsKey($key)) {
+                $bot = $sourceByKey[$key]
+                $bot.BotName = $name
+                $newBots += $bot
+            }
+            else {
+                $newBots += (New-BotRecord -Name $name)
+            }
+        }
+
+        $division.Bots = $newBots
+        Deduplicate-Bots -Division $division
+    }
+}
+
+function Save-BotOverrides {
+    try {
+        $payload = [ordered]@{
+            Version   = 1
+            SavedAt   = (Get-Date).ToString('o')
+            Divisions = @()
+        }
+
+        foreach ($division in $script:App.Divisions) {
+            Deduplicate-Bots -Division $division
+            $names = @()
+            foreach ($bot in (ConvertTo-SafeArray -Value $division.Bots)) {
+                $name = Normalize-BotName -Name ([string]$bot.BotName)
+                if (-not [string]::IsNullOrWhiteSpace($name)) {
+                    $names += $name
+                }
+            }
+
+            $payload.Divisions += [ordered]@{
+                DivisionName = $division.Name
+                DivisionId   = $division.Id
+                Bots         = $names
+            }
+        }
+
+        ($payload | ConvertTo-Json -Depth 6) | Set-Content -LiteralPath $script:App.Paths.BotOverrides -Encoding UTF8
+        Write-Log -Message 'Saved bot overrides to data\botOverrides.json'
+    }
+    catch {
+        $msg = "Failed to save bot overrides JSON: $($_.Exception.Message)"
+        Write-Log -Level 'ERROR' -Message $msg
+        Show-NonFatalWarning -Message $msg
+    }
+}
+
 function Load-AppState {
     $defaults = [ordered]@{
         SelectedDivisionId = $null
@@ -367,10 +546,13 @@ function Reconcile-DivisionsAndMatches {
             }
 
             $bots = @()
+            $botSeen = @{}
             foreach ($b in (ConvertTo-SafeArray -Value $sm.Bots)) {
-                $name = ([string]$b).Trim()
-                if (-not [string]::IsNullOrWhiteSpace($name)) {
+                $name = Normalize-BotName -Name ([string]$b)
+                $key = Get-BotNameKey -Name $name
+                if (-not [string]::IsNullOrWhiteSpace($name) -and -not $botSeen.ContainsKey($key)) {
                     $bots += $name
+                    $botSeen[$key] = $true
                 }
             }
 
@@ -577,6 +759,7 @@ function Clear-AllLiveStatuses {
 
 function Save-AllState {
     Save-MatchPlans
+    Save-BotOverrides
     Save-AppState
 }
 
@@ -820,7 +1003,8 @@ function Show-TextInputDialog {
     param(
         [Parameter(Mandatory = $true)][string]$Title,
         [Parameter(Mandatory = $true)][string]$Prompt,
-        [string]$InitialValue = ''
+        [string]$InitialValue = '',
+        [string]$OkText = 'OK'
     )
 
     $dialog = New-Object System.Windows.Forms.Form
@@ -843,7 +1027,7 @@ function Show-TextInputDialog {
     $textbox.Text = $InitialValue
 
     $ok = New-Object System.Windows.Forms.Button
-    $ok.Text = 'Import'
+    $ok.Text = $OkText
     $ok.Location = New-Object System.Drawing.Point(572, 78)
     $ok.Size = New-Object System.Drawing.Size(76, 28)
 
@@ -876,6 +1060,240 @@ function Show-TextInputDialog {
     }
 
     return ([string]$textbox.Text).Trim()
+}
+
+function Ensure-BotsInDivision {
+    param(
+        [Parameter(Mandatory = $true)]$Division,
+        [Parameter(Mandatory = $true)][string[]]$BotNames
+    )
+
+    $existing = @{}
+    foreach ($bot in (ConvertTo-SafeArray -Value $Division.Bots)) {
+        $key = Get-BotNameKey -Name ([string]$bot.BotName)
+        if ([string]::IsNullOrWhiteSpace($key)) { continue }
+        $existing[$key] = $true
+    }
+
+    $addedCount = 0
+    foreach ($rawName in (ConvertTo-SafeArray -Value $BotNames)) {
+        $name = Normalize-BotName -Name ([string]$rawName)
+        $key = Get-BotNameKey -Name $name
+        if ([string]::IsNullOrWhiteSpace($key) -or $existing.ContainsKey($key)) {
+            continue
+        }
+
+        $Division.Bots += (New-BotRecord -Name $name)
+        $existing[$key] = $true
+        $addedCount++
+    }
+
+    Deduplicate-Bots -Division $Division
+    return $addedCount
+}
+
+function Add-BotToDivision {
+    $division = Get-CurrentDivision
+    if (-not $division) {
+        Show-NonFatalWarning -Message 'Select a division first.'
+        return
+    }
+
+    $name = Show-TextInputDialog `
+        -Title 'Add Bot' `
+        -Prompt 'Enter bot name:'
+    if ([string]::IsNullOrWhiteSpace($name)) {
+        return
+    }
+
+    $name = Normalize-BotName -Name $name
+    $key = Get-BotNameKey -Name $name
+    foreach ($bot in (ConvertTo-SafeArray -Value $division.Bots)) {
+        if ((Get-BotNameKey -Name ([string]$bot.BotName)) -eq $key) {
+            Show-NonFatalWarning -Message "Bot '$name' already exists in this division."
+            return
+        }
+    }
+
+    $division.Bots += (New-BotRecord -Name $name)
+    Deduplicate-Bots -Division $division
+    Save-AllState
+    Refresh-BotList
+    Set-StatusText -Text "Added bot '$name' to '$($division.Name)'."
+    Write-Log -Message "Added bot '$name' to division '$($division.Name)'"
+}
+
+function Edit-SelectedBot {
+    $division = Get-CurrentDivision
+    if (-not $division) {
+        Show-NonFatalWarning -Message 'Select a division first.'
+        return
+    }
+
+    $selected = @($script:App.Controls.BotList.SelectedItems)
+    if ($selected.Count -ne 1) {
+        Show-NonFatalWarning -Message 'Select exactly one bot to edit.'
+        return
+    }
+
+    $bot = $selected[0]
+    $oldName = Normalize-BotName -Name ([string]$bot.BotName)
+    if ([string]::IsNullOrWhiteSpace($oldName)) {
+        Show-NonFatalWarning -Message 'Selected bot has no valid name.'
+        return
+    }
+
+    $newName = Show-TextInputDialog `
+        -Title 'Edit Bot Name' `
+        -Prompt 'Update bot name:' `
+        -InitialValue $oldName
+    if ([string]::IsNullOrWhiteSpace($newName)) {
+        return
+    }
+
+    $newName = Normalize-BotName -Name $newName
+    $oldKey = Get-BotNameKey -Name $oldName
+    $newKey = Get-BotNameKey -Name $newName
+    if ($oldKey -eq $newKey) {
+        return
+    }
+
+    foreach ($other in (ConvertTo-SafeArray -Value $division.Bots)) {
+        if ($other.Id -eq $bot.Id) { continue }
+        if ((Get-BotNameKey -Name ([string]$other.BotName)) -eq $newKey) {
+            Show-NonFatalWarning -Message "Bot '$newName' already exists in this division."
+            return
+        }
+    }
+
+    $bot.BotName = $newName
+    $now = (Get-Date).ToString('o')
+    foreach ($match in (ConvertTo-SafeArray -Value $division.Matches)) {
+        $updated = $false
+        $newBots = @()
+        foreach ($matchBot in (ConvertTo-SafeArray -Value $match.Bots)) {
+            $candidate = [string]$matchBot
+            if ((Get-BotNameKey -Name $candidate) -eq $oldKey) {
+                $candidate = $newName
+                $updated = $true
+            }
+            $newBots += $candidate
+        }
+
+        if ($updated) {
+            $match.Bots = $newBots
+            $match.UpdatedAt = $now
+            if ($match.Status -eq 'Live') {
+                Write-ObsOutputFiles -Division $division -Match $match
+            }
+        }
+    }
+
+    Deduplicate-Bots -Division $division
+    Save-AllState
+    Refresh-BotList
+    Refresh-MatchList
+    Set-StatusText -Text "Renamed bot '$oldName' to '$newName'."
+    Write-Log -Message "Renamed bot '$oldName' to '$newName' in division '$($division.Name)'"
+}
+
+function Remove-SelectedBots {
+    $division = Get-CurrentDivision
+    if (-not $division) {
+        Show-NonFatalWarning -Message 'Select a division first.'
+        return
+    }
+
+    $selected = @($script:App.Controls.BotList.SelectedItems)
+    if ($selected.Count -eq 0) {
+        Show-NonFatalWarning -Message 'Select one or more bots to remove.'
+        return
+    }
+
+    $removeMap = @{}
+    foreach ($bot in $selected) {
+        $name = Normalize-BotName -Name ([string]$bot.BotName)
+        $key = Get-BotNameKey -Name $name
+        if ([string]::IsNullOrWhiteSpace($key) -or $removeMap.ContainsKey($key)) { continue }
+        $removeMap[$key] = $true
+    }
+
+    if ($removeMap.Count -eq 0) {
+        return
+    }
+
+    $confirm = [System.Windows.Forms.MessageBox]::Show(
+        "Remove $($removeMap.Count) bot(s) from '$($division.Name)'? This also removes them from matches.",
+        'Confirm Remove Bots',
+        [System.Windows.Forms.MessageBoxButtons]::YesNo,
+        [System.Windows.Forms.MessageBoxIcon]::Question
+    )
+    if ($confirm -ne [System.Windows.Forms.DialogResult]::Yes) {
+        return
+    }
+
+    $remainingBots = @()
+    foreach ($bot in (ConvertTo-SafeArray -Value $division.Bots)) {
+        $key = Get-BotNameKey -Name ([string]$bot.BotName)
+        if (-not $removeMap.ContainsKey($key)) {
+            $remainingBots += $bot
+        }
+    }
+    $division.Bots = $remainingBots
+    Deduplicate-Bots -Division $division
+
+    $deletedMatches = @()
+    $liveDeleted = $false
+    $keptMatches = @()
+    $now = (Get-Date).ToString('o')
+    foreach ($match in (ConvertTo-SafeArray -Value $division.Matches)) {
+        $newMatchBots = @()
+        $updated = $false
+        foreach ($name in (ConvertTo-SafeArray -Value $match.Bots)) {
+            $key = Get-BotNameKey -Name ([string]$name)
+            if ($removeMap.ContainsKey($key)) {
+                $updated = $true
+                continue
+            }
+            $newMatchBots += [string]$name
+        }
+
+        if ($newMatchBots.Count -lt 2) {
+            $deletedMatches += $match
+            if ($match.Status -eq 'Live') {
+                $liveDeleted = $true
+            }
+            continue
+        }
+
+        if ($updated) {
+            $match.Bots = $newMatchBots
+            $match.UpdatedAt = $now
+            if ($match.Status -eq 'Live') {
+                Write-ObsOutputFiles -Division $division -Match $match
+            }
+        }
+        $keptMatches += $match
+    }
+    $division.Matches = $keptMatches
+
+    if ($liveDeleted) {
+        $script:App.AppState.LiveMatchId = $null
+        Clear-ObsOutputFiles
+    }
+    elseif (-not (Find-MatchById -MatchId $script:App.AppState.LiveMatchId)) {
+        $script:App.AppState.LiveMatchId = $null
+    }
+
+    Renumber-Matches -Division $division
+    $script:App.AppState.SelectedMatchId = $null
+    Save-AllState
+    Refresh-BotList
+    Refresh-MatchList
+
+    $status = "Removed $($removeMap.Count) bot(s). Deleted $($deletedMatches.Count) invalid match(es)."
+    Set-StatusText -Text $status
+    Write-Log -Message "$status Division '$($division.Name)'."
 }
 
 function Convert-ChallongeSvgToMatches {
@@ -1010,7 +1428,8 @@ function Import-ChallongeSvgMatches {
     $source = Show-TextInputDialog `
         -Title 'Import Challonge SVG' `
         -Prompt 'Paste a Challonge printer-friendly SVG URL or a local .svg path:' `
-        -InitialValue 'https://challonge.com/your_tournament.svg'
+        -InitialValue 'https://challonge.com/your_tournament.svg' `
+        -OkText 'Import'
 
     if ([string]::IsNullOrWhiteSpace($source)) {
         return
@@ -1063,14 +1482,28 @@ function Import-ChallongeSvgMatches {
         return
     }
 
+    $allImportedNames = @()
+    foreach ($entry in $imported) {
+        foreach ($name in (ConvertTo-SafeArray -Value $entry.Bots)) {
+            $clean = Normalize-BotName -Name ([string]$name)
+            if (-not [string]::IsNullOrWhiteSpace($clean)) {
+                $allImportedNames += $clean
+            }
+        }
+    }
+    $addedBots = Ensure-BotsInDivision -Division $division -BotNames $allImportedNames
+
     $now = (Get-Date).ToString('o')
     $addedCount = 0
     foreach ($entry in $imported) {
         $botNames = @()
+        $matchSeen = @{}
         foreach ($name in (ConvertTo-SafeArray -Value $entry.Bots)) {
-            $trimmed = ([string]$name).Trim()
-            if (-not [string]::IsNullOrWhiteSpace($trimmed) -and -not ($botNames -contains $trimmed)) {
+            $trimmed = Normalize-BotName -Name ([string]$name)
+            $key = Get-BotNameKey -Name $trimmed
+            if (-not [string]::IsNullOrWhiteSpace($trimmed) -and -not $matchSeen.ContainsKey($key)) {
                 $botNames += $trimmed
+                $matchSeen[$key] = $true
             }
         }
 
@@ -1102,7 +1535,7 @@ function Import-ChallongeSvgMatches {
     Save-AllState
     Refresh-MatchList
 
-    $status = "Imported $addedCount match(es) from Challonge SVG into '$($division.Name)'."
+    $status = "Imported $addedCount match(es) and added $addedBots new bot(s) from Challonge SVG into '$($division.Name)'."
     Set-StatusText -Text $status
     Write-Log -Message $status
 }
@@ -1249,6 +1682,8 @@ function Reload-Divisions {
     }
 
     Load-DivisionCsvFiles
+    $botOverrides = Load-BotOverrides
+    Apply-BotOverrides -Overrides $botOverrides
     $plans = Load-MatchPlans
     Reconcile-DivisionsAndMatches -SavedPlans $plans
 
@@ -1334,6 +1769,27 @@ function Build-MainForm {
     $btnCreate.Dock = 'Bottom'
     $btnCreate.Height = 32
 
+    $botActions = New-Object System.Windows.Forms.FlowLayoutPanel
+    $botActions.Dock = 'Bottom'
+    $botActions.Height = 34
+    $botActions.WrapContents = $false
+
+    $btnAddBot = New-Object System.Windows.Forms.Button
+    $btnAddBot.Text = 'Add Bot'
+    $btnAddBot.Width = 90
+
+    $btnEditBot = New-Object System.Windows.Forms.Button
+    $btnEditBot.Text = 'Edit Bot'
+    $btnEditBot.Width = 90
+
+    $btnRemoveBot = New-Object System.Windows.Forms.Button
+    $btnRemoveBot.Text = 'Remove Bot(s)'
+    $btnRemoveBot.Width = 110
+
+    foreach ($btn in @($btnAddBot, $btnEditBot, $btnRemoveBot)) {
+        [void]$botActions.Controls.Add($btn)
+    }
+
     $botList = New-Object System.Windows.Forms.ListBox
     $botList.Dock = 'Fill'
     $botList.SelectionMode = [System.Windows.Forms.SelectionMode]::MultiExtended
@@ -1341,6 +1797,7 @@ function Build-MainForm {
 
     $midPanel.Controls.Add($botList)
     $midPanel.Controls.Add($btnCreate)
+    $midPanel.Controls.Add($botActions)
     $midPanel.Controls.Add($botFilter)
     $midPanel.Controls.Add($botFilterLabel)
     $midPanel.Controls.Add($botHeader)
@@ -1533,6 +1990,9 @@ function Build-MainForm {
 
     $btnReload.Add_Click({ Reload-Divisions })
     $btnCreate.Add_Click({ Create-MatchFromSelection })
+    $btnAddBot.Add_Click({ Add-BotToDivision })
+    $btnEditBot.Add_Click({ Edit-SelectedBot })
+    $btnRemoveBot.Add_Click({ Remove-SelectedBots })
     $btnUp.Add_Click({ Move-SelectedMatch -Delta -1 })
     $btnDown.Add_Click({ Move-SelectedMatch -Delta 1 })
     $btnDelete.Add_Click({ Delete-SelectedMatch })
@@ -1570,6 +2030,18 @@ function Build-MainForm {
 
         if ($e.Control -and $e.KeyCode -eq [System.Windows.Forms.Keys]::N) {
             Create-MatchFromSelection
+            $e.SuppressKeyPress = $true
+            return
+        }
+
+        if ($e.Control -and $e.KeyCode -eq [System.Windows.Forms.Keys]::B) {
+            Add-BotToDivision
+            $e.SuppressKeyPress = $true
+            return
+        }
+
+        if ($e.Control -and $e.KeyCode -eq [System.Windows.Forms.Keys]::E) {
+            Edit-SelectedBot
             $e.SuppressKeyPress = $true
             return
         }
@@ -1618,11 +2090,21 @@ function Build-MainForm {
                 return
             }
         }
+
+        if ($script:App.Controls.BotList.Focused) {
+            if ($e.KeyCode -eq [System.Windows.Forms.Keys]::Delete) {
+                Remove-SelectedBots
+                $e.SuppressKeyPress = $true
+                return
+            }
+        }
     })
 }
 
 function Initialize-Data {
     Load-DivisionCsvFiles
+    $botOverrides = Load-BotOverrides
+    Apply-BotOverrides -Overrides $botOverrides
     $savedPlans = Load-MatchPlans
     Reconcile-DivisionsAndMatches -SavedPlans $savedPlans
     $script:App.AppState = Load-AppState

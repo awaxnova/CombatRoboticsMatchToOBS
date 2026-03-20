@@ -183,3 +183,95 @@
 [2026-03-20 14:03:57] [INFO] Cleared OBS output files
 [2026-03-20 14:04:11] [INFO] Saved match plans to data\matchPlans.json
 [2026-03-20 14:04:11] [INFO] Imported 9 match(es) from Challonge SVG into 'advancedPLANT'.
+[2026-03-20 14:04:45] [INFO] Wrote OBS output files for live match 'Match 1' in 'advancedPLANT'
+[2026-03-20 14:04:45] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:04:45] [INFO] Set live match '7b57b831-1452-47a1-a02a-2915c4767f85' in division 'advancedPLANT'
+[2026-03-20 14:10:44] [INFO] Wrote OBS output files for live match 'Match 8' in 'advancedPLANT'
+[2026-03-20 14:10:44] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:10:44] [INFO] Set live match '3a5be248-97e4-45da-8911-4372427f5442' in division 'advancedPLANT'
+[2026-03-20 14:10:48] [INFO] Wrote OBS output files for live match 'Match 7' in 'advancedPLANT'
+[2026-03-20 14:10:48] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:10:48] [INFO] Set live match 'adae7d7e-67bd-4aa0-a539-44ecb377288c' in division 'advancedPLANT'
+[2026-03-20 14:10:51] [INFO] Wrote OBS output files for live match 'Match 5' in 'advancedPLANT'
+[2026-03-20 14:10:51] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:10:51] [INFO] Set live match '036072d4-3ecd-4651-9def-4a85071ef336' in division 'advancedPLANT'
+[2026-03-20 14:10:56] [INFO] Wrote OBS output files for live match 'Match 4' in 'advancedPLANT'
+[2026-03-20 14:10:56] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:10:56] [INFO] Set live match 'aed46b1d-39da-419c-9aad-6d8da11d5202' in division 'advancedPLANT'
+[2026-03-20 14:11:00] [INFO] Wrote OBS output files for live match 'Match 2' in 'advancedPLANT'
+[2026-03-20 14:11:00] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:11:00] [INFO] Set live match 'd92e9187-8aa0-46c2-b634-0c2314eafc7d' in division 'advancedPLANT'
+[2026-03-20 14:11:04] [INFO] Cleared OBS output files
+[2026-03-20 14:11:04] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:11:04] [INFO] Cleared live match
+[2026-03-20 14:11:09] [INFO] Wrote OBS output files for live match 'Match 8' in 'advancedPLANT'
+[2026-03-20 14:11:09] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:11:09] [INFO] Set live match '3a5be248-97e4-45da-8911-4372427f5442' in division 'advancedPLANT'
+[2026-03-20 14:11:20] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:11:20] [INFO] Created match '2a48ef0a-31f0-4ce4-bbdb-7ced209bbe37' in division 'beginnerPLANT'
+[2026-03-20 14:11:21] [INFO] Wrote OBS output files for live match 'Match 1' in 'beginnerPLANT'
+[2026-03-20 14:11:21] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:11:21] [INFO] Set live match '2a48ef0a-31f0-4ce4-bbdb-7ced209bbe37' in division 'beginnerPLANT'
+[2026-03-20 14:12:28] [INFO] Cleared OBS output files
+[2026-03-20 14:12:28] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:12:28] [INFO] Cleared live match
+[2026-03-20 14:12:31] [INFO] Wrote OBS output files for live match 'Match 1' in 'beginnerPLANT'
+[2026-03-20 14:12:31] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:12:31] [INFO] Set live match '2a48ef0a-31f0-4ce4-bbdb-7ced209bbe37' in division 'beginnerPLANT'
+[2026-03-20 14:12:34] [INFO] Cleared OBS output files
+[2026-03-20 14:12:34] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:12:34] [INFO] Set match '2a48ef0a-31f0-4ce4-bbdb-7ced209bbe37' status to Queued
+[2026-03-20 14:12:38] [INFO] Wrote OBS output files for live match 'Match 1' in 'beginnerPLANT'
+[2026-03-20 14:12:38] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:12:38] [INFO] Set live match '2a48ef0a-31f0-4ce4-bbdb-7ced209bbe37' in division 'beginnerPLANT'
+[2026-03-20 14:14:18] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:14:18] [INFO] Application shutdown
+[2026-03-20 14:14:22] [INFO] Application startup
+[2026-03-20 14:14:22] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 14:14:22] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 14:14:22] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 14:14:22] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 14:14:22] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 14:14:22] [INFO] Wrote OBS output files for live match 'Match 1' in 'beginnerPLANT'
+[2026-03-20 14:14:33] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:14:33] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:14:33] [INFO] Created match '7825d6cd-4b36-4ebf-b779-df0ce2839951' in division 'beginnerPLANT'
+[2026-03-20 14:14:35] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:14:35] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:14:35] [INFO] Created match 'ed86b000-47af-45da-9b76-ae81a125f829' in division 'beginnerPLANT'
+[2026-03-20 14:14:40] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:14:40] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:14:40] [INFO] Added bot 'test1' to division 'beginnerPLANT'
+[2026-03-20 14:14:41] [WARN] Select exactly one bot to edit.
+[2026-03-20 14:14:47] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:14:47] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:14:47] [INFO] Renamed bot 'test1' to 'test123' in division 'beginnerPLANT'
+[2026-03-20 14:14:54] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:14:54] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:14:54] [INFO] Removed 1 bot(s). Deleted 0 invalid match(es). Division 'beginnerPLANT'.
+[2026-03-20 14:15:09] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:15:09] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:15:09] [INFO] Imported 9 match(es) and added 9 new bot(s) from Challonge SVG into 'beginnerPLANT'.
+[2026-03-20 14:15:29] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 14:15:29] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 14:15:29] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 14:15:29] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 14:15:29] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 14:15:29] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 14:15:29] [INFO] Wrote OBS output files for live match 'Match 1' in 'beginnerPLANT'
+[2026-03-20 14:15:29] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:15:29] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:15:29] [INFO] Reloaded divisions from CSV files
+[2026-03-20 14:15:32] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 14:15:32] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 14:15:32] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 14:15:32] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 14:15:32] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 14:15:32] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 14:15:32] [INFO] Wrote OBS output files for live match 'Match 1' in 'beginnerPLANT'
+[2026-03-20 14:15:32] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:15:32] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:15:32] [INFO] Reloaded divisions from CSV files
+[2026-03-20 14:15:57] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:15:57] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:15:57] [INFO] Removed 9 bot(s). Deleted 9 invalid match(es). Division 'beginnerPLANT'.
