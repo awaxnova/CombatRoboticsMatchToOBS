@@ -318,3 +318,16 @@
 [2026-03-20 14:29:22] [INFO] Saved match plans to data\matchPlans.json
 [2026-03-20 14:29:22] [INFO] Saved bot overrides to data\botOverrides.json
 [2026-03-20 14:29:22] [INFO] Deleted 1 match(es) from division 'botsIQ_15lbs'
+[2026-03-20 14:36:40] [INFO] Loaded division '0botsIQ_15lbs' with 14 bots from 0botsIQ_15lbs.csv
+[2026-03-20 14:36:40] [INFO] Loaded division '1beginnerPLANT' with 14 bots from 1beginnerPLANT.csv
+[2026-03-20 14:36:40] [INFO] Loaded division '2intermediatePLANT' with 19 bots from 2intermediatePLANT.csv
+[2026-03-20 14:36:40] [INFO] Loaded division '3advancedPLANT' with 17 bots from 3advancedPLANT.csv
+[2026-03-20 14:36:40] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 14:36:40] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 14:36:40] [INFO] Cleared OBS output files
+[2026-03-20 14:36:40] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:36:40] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:36:40] [INFO] Reloaded divisions from CSV files
+[2026-03-20 14:38:11] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:38:11] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:38:11] [INFO] Application shutdown

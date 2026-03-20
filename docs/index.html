@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CombatMatchManager Downloads</title>
+  <style>
+    :root {
+      --bg: #f5f4ef;
+      --ink: #1b1b1b;
+      --muted: #57534e;
+      --accent: #b42318;
+      --accent-2: #0f766e;
+      --card: #fffef9;
+      --border: #d6d3d1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #fcd34d33, transparent 60%),
+        radial-gradient(800px 500px at 100% 0%, #14b8a633, transparent 60%),
+        var(--bg);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: min(760px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      line-height: 1.15;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      color: white;
+      background: var(--accent);
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-weight: 700;
+      border: 2px solid transparent;
+      transition: transform .08s ease, filter .08s ease;
+    }
+
+    .btn:hover { filter: brightness(1.07); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn.secondary {
+      background: white;
+      color: var(--ink);
+      border-color: var(--border);
+    }
+
+    .meta {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .meta code {
+      background: #f4f4f5;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 14px;
+      color: white;
+      background: var(--accent-2);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <span class="badge">Combat Robotics</span>
+    <h1>CombatMatchManager</h1>
+    <p>Download the latest Windows portable build and view source files on GitHub.</p>
+
+    <div class="actions">
+      <a class="btn" href="https://github.com/awaxnova/CombatRoboticsMatchToOBS/releases/latest">Download Latest Release</a>
+      <a class="btn secondary" href="https://github.com/awaxnova/CombatRoboticsMatchToOBS">View Repository</a>
+    </div>
+
+    <p class="meta">
+      If no release is published yet, create one from <code>Releases -&gt; Draft a new release</code>
+      and upload your portable package (for example a <code>.zip</code>).
+    </p>
+  </main>
+</body>
+</html>

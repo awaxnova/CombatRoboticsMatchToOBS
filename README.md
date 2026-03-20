@@ -2,6 +2,12 @@
 
 Portable Windows PowerShell 5.1 WinForms app for managing combat robotics matches and writing OBS text source files.
 
+## Download
+- Public page: https://awaxnova.github.io/CombatRoboticsMatchToOBS/
+- Latest release: https://github.com/awaxnova/CombatRoboticsMatchToOBS/releases/latest
+
+To publish the page on GitHub: `Settings -> Pages -> Deploy from a branch -> main /docs`.
+
 ## Requirements
 - Windows 10/11
 - Windows PowerShell 5.1
