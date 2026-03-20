@@ -627,6 +627,23 @@ function Set-ObsPreview {
     Refresh-LivePreview
 }
 
+function Format-RumbleBotList {
+    param([string[]]$Bots)
+
+    $normalizedBots = @($Bots |
+        ForEach-Object { Normalize-BotName -Name ([string]$_) } |
+        Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+    if ($normalizedBots.Count -eq 0) { return '' }
+
+    $lines = @()
+    for ($i = 0; $i -lt $normalizedBots.Count; $i += 4) {
+        $count = [Math]::Min(4, $normalizedBots.Count - $i)
+        $lines += (($normalizedBots[$i..($i + $count - 1)]) -join ', ')
+    }
+
+    return ($lines -join [Environment]::NewLine)
+}
+
 function Write-ObsOutputFiles {
     param(
         [Parameter(Mandatory = $true)]$Division,
@@ -637,6 +654,7 @@ function Write-ObsOutputFiles {
         $divisionText = if ([string]::IsNullOrWhiteSpace([string]$Match.ArenaLabel)) { $Division.Name } else { [string]$Match.ArenaLabel }
         $matchText = "Match $($Match.MatchNumber)"
         $bots = @(ConvertTo-SafeArray -Value $Match.Bots)
+        $rumbleList = Format-RumbleBotList -Bots $bots
         $slotCount = [Math]::Max(6, [Math]::Max($bots.Count, (Get-ObsBotOutputMaxIndex)))
 
         $values = [ordered]@{
@@ -660,6 +678,7 @@ function Write-ObsOutputFiles {
         Write-OutputFile -Name 'current_match.txt' -Value $values.Match
         Write-OutputFile -Name 'current_status.txt' -Value $values.Status
         Write-OutputFile -Name 'current_vs.txt' -Value $values.Vs
+        Write-OutputFile -Name 'current_bot_rumble.txt' -Value $rumbleList
         for ($i = 1; $i -le $slotCount; $i++) {
             $botValue = if ($i -le $bots.Count) { [string]$bots[$i - 1] } else { '' }
             Write-OutputFile -Name "current_bot_$i.txt" -Value $botValue
@@ -683,6 +702,7 @@ function Clear-ObsOutputFiles {
         Write-OutputFile -Name 'current_match.txt' -Value ''
         Write-OutputFile -Name 'current_status.txt' -Value ''
         Write-OutputFile -Name 'current_vs.txt' -Value ''
+        Write-OutputFile -Name 'current_bot_rumble.txt' -Value ''
         for ($i = 1; $i -le $slotCount; $i++) {
             Write-OutputFile -Name "current_bot_$i.txt" -Value ''
         }
@@ -791,6 +811,29 @@ function Clear-LiveMatch {
     Save-AllState
     Write-Log -Message 'Cleared live match'
     Refresh-MatchList
+}
+
+function Write-RumbleListForMatch {
+    param(
+        [Parameter(Mandatory = $true)]$Division,
+        [Parameter(Mandatory = $true)]$Match
+    )
+
+    try {
+        $bots = @(ConvertTo-SafeArray -Value $Match.Bots) |
+            ForEach-Object { Normalize-BotName -Name ([string]$_) } |
+            Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+        $rumbleList = Format-RumbleBotList -Bots $bots
+
+        Write-OutputFile -Name 'current_bot_rumble.txt' -Value $rumbleList
+        Set-StatusText -Text "RUMBLE wrote $($bots.Count) bot(s) to current_bot_rumble.txt."
+        Write-Log -Message "RUMBLE wrote selected match bots to current_bot_rumble.txt for division '$($Division.Name)' match '$($Match.Id)'"
+    }
+    catch {
+        $msg = "Failed writing RUMBLE bot list: $($_.Exception.Message)"
+        Write-Log -Level 'ERROR' -Message $msg
+        Show-NonFatalWarning -Message $msg
+    }
 }
 
 function Get-MatchDisplayText {
@@ -1847,11 +1890,15 @@ function Build-MainForm {
     $btnQueued.Text = 'Mark Queued'
     $btnQueued.Width = 95
 
+    $btnRumble = New-Object System.Windows.Forms.Button
+    $btnRumble.Text = 'RUMBLE'
+    $btnRumble.Width = 95
+
     $btnImportSvg = New-Object System.Windows.Forms.Button
     $btnImportSvg.Text = 'Import Challonge SVG'
     $btnImportSvg.Width = 145
 
-    foreach ($btn in @($btnSetLive, $btnClearLive, $btnUp, $btnDown, $btnEdit, $btnDelete, $btnDone, $btnQueued, $btnImportSvg)) {
+    foreach ($btn in @($btnSetLive, $btnClearLive, $btnUp, $btnDown, $btnEdit, $btnDelete, $btnDone, $btnQueued, $btnRumble, $btnImportSvg)) {
         [void]$actions.Controls.Add($btn)
     }
 
@@ -1999,6 +2046,15 @@ function Build-MainForm {
     $btnEdit.Add_Click({ Edit-SelectedMatch })
     $btnDone.Add_Click({ Set-SelectedMatchStatus -Status 'Done' })
     $btnQueued.Add_Click({ Set-SelectedMatchStatus -Status 'Queued' })
+    $btnRumble.Add_Click({
+        $division = Get-CurrentDivision
+        $match = Get-CurrentMatch
+        if (-not $match) {
+            Show-NonFatalWarning -Message 'Select a match to RUMBLE.'
+            return
+        }
+        Write-RumbleListForMatch -Division $division -Match $match
+    })
     $btnImportSvg.Add_Click({ Import-ChallongeSvgMatches })
 
     $btnSetLive.Add_Click({

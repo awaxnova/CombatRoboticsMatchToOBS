@@ -66,6 +66,7 @@ When a live match is set, files in `output/` are overwritten:
 - `current_division.txt`
 - `current_match.txt`
 - `current_bot_1.txt` ... `current_bot_N.txt` (one per bot; minimum 6 files maintained)
+- `current_bot_rumble.txt` (all bots in live match, comma-delimited; wraps after 4 bots per line)
 - `current_status.txt`
 - `current_vs.txt`
 

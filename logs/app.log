@@ -275,3 +275,46 @@
 [2026-03-20 14:15:57] [INFO] Saved match plans to data\matchPlans.json
 [2026-03-20 14:15:57] [INFO] Saved bot overrides to data\botOverrides.json
 [2026-03-20 14:15:57] [INFO] Removed 9 bot(s). Deleted 9 invalid match(es). Division 'beginnerPLANT'.
+[2026-03-20 14:21:00] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:21:00] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:21:00] [INFO] Application shutdown
+[2026-03-20 14:21:03] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:21:03] [INFO] Application shutdown
+[2026-03-20 14:21:06] [INFO] Application startup
+[2026-03-20 14:21:07] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 14:21:07] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 14:21:07] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 14:21:07] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 14:21:07] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 14:21:07] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 14:21:07] [INFO] Cleared OBS output files
+[2026-03-20 14:21:18] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:21:18] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:21:18] [INFO] Created match 'f6c3ecdb-ee19-4369-83be-fd372233cf11' in division 'advancedPLANT'
+[2026-03-20 14:21:19] [INFO] RUMBLE wrote selected match bots to current_bot_1.txt for division 'advancedPLANT' match 'f6c3ecdb-ee19-4369-83be-fd372233cf11'
+[2026-03-20 14:28:34] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:28:34] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:28:34] [INFO] Application shutdown
+[2026-03-20 14:28:39] [INFO] Application startup
+[2026-03-20 14:28:40] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 14:28:40] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 14:28:40] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 14:28:40] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 14:28:40] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 14:28:40] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 14:28:40] [INFO] Cleared OBS output files
+[2026-03-20 14:28:48] [WARN] Selected bot(s) already appear in other matches: Donut of Doom, Claw & Order, Squritle Bot.
+[2026-03-20 14:28:48] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:28:48] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:28:48] [INFO] Created match '0416099e-86b3-4dd9-a4c2-700218289fda' in division 'advancedPLANT'
+[2026-03-20 14:28:50] [INFO] RUMBLE wrote selected match bots to current_bot_rumble.txt for division 'advancedPLANT' match '0416099e-86b3-4dd9-a4c2-700218289fda'
+[2026-03-20 14:29:10] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:29:10] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:29:10] [INFO] Deleted 2 match(es) from division 'advancedPLANT'
+[2026-03-20 14:29:13] [INFO] Cleared OBS output files
+[2026-03-20 14:29:13] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:29:13] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:29:13] [INFO] Cleared live match
+[2026-03-20 14:29:22] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:29:22] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:29:22] [INFO] Deleted 1 match(es) from division 'botsIQ_15lbs'
