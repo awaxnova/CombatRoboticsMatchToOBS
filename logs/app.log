@@ -64,3 +64,36 @@
 [2026-03-20 13:38:16] [WARN] Selected bot(s) already appear in other matches: Revenge of the wedge, OVER.
 [2026-03-20 13:38:16] [INFO] Saved match plans to data\matchPlans.json
 [2026-03-20 13:38:16] [INFO] Created match '43520cbb-02d8-47d4-8be4-d6c63c673da6' in division 'intermediatePLANT'
+[2026-03-20 13:38:36] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:38:36] [INFO] Set match '0d5f7aef-b220-4465-9bb0-c523cc297e78' status to Done
+[2026-03-20 13:38:37] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:38:37] [INFO] Set match '0d5f7aef-b220-4465-9bb0-c523cc297e78' status to Queued
+[2026-03-20 13:38:41] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:38:41] [INFO] Deleted match '0d5f7aef-b220-4465-9bb0-c523cc297e78' from division 'intermediatePLANT'
+[2026-03-20 13:38:48] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:38:48] [INFO] Reordered matches in division 'intermediatePLANT'
+[2026-03-20 13:38:49] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:38:49] [INFO] Reordered matches in division 'intermediatePLANT'
+[2026-03-20 13:39:02] [ERROR] Failed writing OBS output files: Collection was modified; enumeration operation may not execute.
+[2026-03-20 13:39:02] [WARN] Failed writing OBS output files: Collection was modified; enumeration operation may not execute.
+[2026-03-20 13:39:52] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:39:52] [INFO] Set live match '1edb349e-62cb-4407-9638-b2b69e6932ff' in division 'intermediatePLANT'
+[2026-03-20 13:39:54] [ERROR] Failed writing OBS output files: Collection was modified; enumeration operation may not execute.
+[2026-03-20 13:39:54] [WARN] Failed writing OBS output files: Collection was modified; enumeration operation may not execute.
+[2026-03-20 13:39:56] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:39:56] [INFO] Set live match '70aef7e9-7ff9-4e5b-845b-9e723d44250c' in division 'intermediatePLANT'
+[2026-03-20 13:40:02] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:40:02] [INFO] Application shutdown
+[2026-03-20 13:40:08] [INFO] Application startup
+[2026-03-20 13:40:08] [INFO] Loaded division 'advancedPLANT' with 17 bots from advancedPLANT.csv
+[2026-03-20 13:40:08] [INFO] Loaded division 'beginnerPLANT' with 14 bots from beginnerPLANT.csv
+[2026-03-20 13:40:08] [INFO] Loaded division 'botsIQ_15lbs' with 14 bots from botsIQ_15lbs.csv
+[2026-03-20 13:40:08] [INFO] Loaded division 'intermediatePLANT' with 19 bots from intermediatePLANT.csv
+[2026-03-20 13:40:09] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 13:40:09] [INFO] Wrote OBS output files for live match 'Match 1' in 'intermediatePLANT'
+[2026-03-20 13:40:14] [INFO] Wrote OBS output files for live match 'Match 2' in 'intermediatePLANT'
+[2026-03-20 13:40:14] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:40:14] [INFO] Set live match '1edb349e-62cb-4407-9638-b2b69e6932ff' in division 'intermediatePLANT'
+[2026-03-20 13:41:05] [INFO] Cleared OBS output files
+[2026-03-20 13:41:05] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 13:41:05] [INFO] Cleared live match

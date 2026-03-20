@@ -419,7 +419,7 @@ function Write-OutputFile {
 function Set-ObsPreview {
     param([hashtable]$Values)
 
-    foreach ($k in $script:App.ObsPreview.Keys) {
+    foreach ($k in @($script:App.ObsPreview.Keys)) {
         if ($Values.ContainsKey($k)) {
             $script:App.ObsPreview[$k] = [string]$Values[$k]
         }
