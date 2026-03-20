@@ -331,3 +331,104 @@
 [2026-03-20 14:38:11] [INFO] Saved match plans to data\matchPlans.json
 [2026-03-20 14:38:11] [INFO] Saved bot overrides to data\botOverrides.json
 [2026-03-20 14:38:11] [INFO] Application shutdown
+[2026-03-20 14:56:24] [INFO] Application startup
+[2026-03-20 14:56:24] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 14:56:24] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 14:56:24] [INFO] Cleared OBS output files
+[2026-03-20 14:56:34] [WARN] Select a division first.
+[2026-03-20 14:56:37] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 14:56:37] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 14:56:37] [INFO] Cleared OBS output files
+[2026-03-20 14:56:37] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 14:56:37] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 14:56:37] [INFO] Reloaded divisions from CSV files
+[2026-03-20 14:58:24] [INFO] Application startup
+[2026-03-20 14:58:24] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 14:58:24] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 14:58:24] [INFO] Cleared OBS output files
+[2026-03-20 15:07:13] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:07:13] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:07:13] [INFO] Application shutdown
+[2026-03-20 15:07:19] [INFO] Application startup
+[2026-03-20 15:07:19] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 15:07:19] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 15:07:19] [INFO] Cleared OBS output files
+[2026-03-20 15:07:24] [WARN] Select a division first.
+[2026-03-20 15:07:26] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 15:07:26] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 15:07:26] [INFO] Cleared OBS output files
+[2026-03-20 15:07:26] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:07:26] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:07:26] [INFO] Reloaded divisions from CSV files
+[2026-03-20 15:08:51] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:08:51] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:08:51] [INFO] Application shutdown
+[2026-03-20 15:09:55] [INFO] Application startup
+[2026-03-20 15:09:55] [INFO] Loaded division 'SBB 2026 -NRL Bots IQ Bracket' with 0 bots from SBB 2026 -NRL Bots IQ Bracket.csv
+[2026-03-20 15:09:55] [INFO] Loaded division 'SBB IRL #3 PLANT Advanced Open' with 0 bots from SBB IRL #3 PLANT Advanced Open.csv
+[2026-03-20 15:09:55] [INFO] Loaded division 'SBB IRL #3 PLANT Beginner' with 0 bots from SBB IRL #3 PLANT Beginner.csv
+[2026-03-20 15:09:55] [INFO] Loaded division 'SBB IRL #3 PLANT Intermediate' with 0 bots from SBB IRL #3 PLANT Intermediate.csv
+[2026-03-20 15:09:55] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 15:09:55] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 15:09:55] [INFO] Cleared OBS output files
+[2026-03-20 15:10:48] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:10:48] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:10:48] [INFO] Imported 18 match(es) and added 14 new bot(s) from Challonge SVG into 'SBB IRL #3 PLANT Beginner'.
+[2026-03-20 15:11:42] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:11:42] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:11:42] [INFO] Imported 27 match(es) and added 19 new bot(s) from Challonge SVG into 'SBB IRL #3 PLANT Intermediate'.
+[2026-03-20 15:12:55] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:12:55] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:12:55] [INFO] Imported 6 match(es) and added 12 new bot(s) from Challonge SVG into 'SBB 2026 -NRL Bots IQ Bracket'.
+[2026-03-20 15:16:32] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:16:32] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:16:32] [INFO] Application shutdown
+[2026-03-20 15:16:36] [INFO] Application startup
+[2026-03-20 15:16:37] [INFO] Loaded division 'SBB 2026 -NRL Bots IQ Bracket' with 0 bots from SBB 2026 -NRL Bots IQ Bracket.csv
+[2026-03-20 15:16:37] [INFO] Loaded division 'SBB IRL #3 PLANT Advanced Open' with 0 bots from SBB IRL #3 PLANT Advanced Open.csv
+[2026-03-20 15:16:37] [INFO] Loaded division 'SBB IRL #3 PLANT Beginner' with 0 bots from SBB IRL #3 PLANT Beginner.csv
+[2026-03-20 15:16:37] [INFO] Loaded division 'SBB IRL #3 PLANT Intermediate' with 0 bots from SBB IRL #3 PLANT Intermediate.csv
+[2026-03-20 15:16:37] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 15:16:37] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 15:16:37] [ERROR] Failed to load app state JSON: The property 'DivisionOrderIds' cannot be found on this object. Verify that the property exists.
+[2026-03-20 15:16:37] [WARN] Failed to load app state JSON: The property 'DivisionOrderIds' cannot be found on this object. Verify that the property exists.
+[2026-03-20 15:17:46] [INFO] Cleared OBS output files
+[2026-03-20 15:17:48] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:17:48] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:17:48] [INFO] Application shutdown
+[2026-03-20 15:17:51] [INFO] Application startup
+[2026-03-20 15:17:52] [INFO] Loaded division 'SBB 2026 -NRL Bots IQ Bracket' with 0 bots from SBB 2026 -NRL Bots IQ Bracket.csv
+[2026-03-20 15:17:52] [INFO] Loaded division 'SBB IRL #3 PLANT Advanced Open' with 0 bots from SBB IRL #3 PLANT Advanced Open.csv
+[2026-03-20 15:17:52] [INFO] Loaded division 'SBB IRL #3 PLANT Beginner' with 0 bots from SBB IRL #3 PLANT Beginner.csv
+[2026-03-20 15:17:52] [INFO] Loaded division 'SBB IRL #3 PLANT Intermediate' with 0 bots from SBB IRL #3 PLANT Intermediate.csv
+[2026-03-20 15:17:52] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-20 15:17:52] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-20 15:17:52] [INFO] Cleared OBS output files
+[2026-03-20 15:18:03] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:18:03] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:18:03] [INFO] Reordered divisions; moved 'SBB 2026 -NRL Bots IQ Bracket' to position 2
+[2026-03-20 15:18:03] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:18:03] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:18:03] [INFO] Reordered divisions; moved 'SBB 2026 -NRL Bots IQ Bracket' to position 3
+[2026-03-20 15:18:04] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:18:04] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:18:04] [INFO] Reordered divisions; moved 'SBB 2026 -NRL Bots IQ Bracket' to position 4
+[2026-03-20 15:18:06] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:18:06] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:18:06] [INFO] Reordered divisions; moved 'SBB IRL #3 PLANT Beginner' to position 1
+[2026-03-20 15:18:08] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:18:08] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:18:08] [INFO] Reordered divisions; moved 'SBB IRL #3 PLANT Advanced Open' to position 3
+[2026-03-20 15:18:15] [WARN] Selected bot(s) already appear in other matches: Hot Rush, Velocity.
+[2026-03-20 15:18:15] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:18:15] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:18:15] [INFO] Created match '7b11b6bb-6148-4168-bd98-17499b232b7c' in division 'SBB 2026 -NRL Bots IQ Bracket'
+[2026-03-20 15:18:21] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:18:21] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:18:21] [INFO] Deleted 1 match(es) from division 'SBB 2026 -NRL Bots IQ Bracket'
+[2026-03-20 15:18:29] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:18:29] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:18:29] [INFO] Set match 'bfa84506-3b29-43fd-ba33-408779d33442' status to Done
+[2026-03-20 15:18:32] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-20 15:18:32] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-20 15:18:32] [INFO] Set match 'bfa84506-3b29-43fd-ba33-408779d33442' status to Queued

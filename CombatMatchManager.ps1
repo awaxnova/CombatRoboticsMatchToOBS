@@ -11,6 +11,7 @@ $script:App = [ordered]@{
         SelectedDivisionId = $null
         SelectedMatchId    = $null
         LiveMatchId        = $null
+        DivisionOrderIds   = @()
     }
     ObsPreview = [ordered]@{
         Division = ''
@@ -112,6 +113,35 @@ function Get-BotNameKey {
     return (Normalize-BotName -Name $Name).ToLowerInvariant()
 }
 
+function Test-ElementHasCssClass {
+    param(
+        [Parameter(Mandatory = $true)]$Node,
+        [Parameter(Mandatory = $true)][string]$ClassName
+    )
+
+    if ($null -eq $Node) { return $false }
+
+    $classAttr = $Node.Attributes['class']
+    if (-not $classAttr) { return $false }
+
+    $classValue = [string]$classAttr.Value
+    if ([string]::IsNullOrWhiteSpace($classValue)) { return $false }
+
+    $escaped = [regex]::Escape($ClassName)
+    return ($classValue -match "(^|\s)$escaped(\s|$)")
+}
+
+function Test-ChallongePlaceholderName {
+    param([string]$Name)
+
+    $value = Normalize-BotName -Name $Name
+    if ([string]::IsNullOrWhiteSpace($value)) { return $true }
+    if ($value -match '^(?i:TBD|BYE)$') { return $true }
+    if ($value -match '^(?i:(Winner|Loser)\s+of\b)') { return $true }
+    if ($value -match '^(?i:\d+(st|nd|rd|th)\s+in\s+Group\b)') { return $true }
+    return $false
+}
+
 function New-BotRecord {
     param(
         [Parameter(Mandatory = $true)][string]$Name,
@@ -173,8 +203,44 @@ function Import-CsvFlexible {
     }
 }
 
+function Test-CsvHasMeaningfulContent {
+    param([Parameter(Mandatory = $true)][string]$Path)
+
+    try {
+        $raw = Get-Content -LiteralPath $Path -Raw -Encoding UTF8
+    }
+    catch {
+        $raw = Get-Content -LiteralPath $Path -Raw -Encoding Default
+    }
+
+    if ([string]::IsNullOrWhiteSpace($raw)) {
+        return $false
+    }
+
+    $lines = @($raw -split "(`r`n|`n|`r)")
+    foreach ($line in $lines) {
+        $clean = ([string]$line).Trim()
+        if ([string]::IsNullOrWhiteSpace($clean)) {
+            continue
+        }
+
+        # Treat lines that are only delimiters as empty.
+        if ($clean -match '^[,\t;|]+$') {
+            continue
+        }
+
+        return $true
+    }
+
+    return $false
+}
+
 function Import-DivisionRows {
     param([Parameter(Mandatory = $true)][string]$Path)
+
+    if (-not (Test-CsvHasMeaningfulContent -Path $Path)) {
+        return @()
+    }
 
     $rows = Import-CsvFlexible -Path $Path
     if (-not $rows) {
@@ -470,6 +536,7 @@ function Load-AppState {
         SelectedDivisionId = $null
         SelectedMatchId    = $null
         LiveMatchId        = $null
+        DivisionOrderIds   = @()
     }
 
     if (-not (Test-Path -LiteralPath $script:App.Paths.AppState)) {
@@ -483,10 +550,22 @@ function Load-AppState {
         }
 
         $obj = ConvertFrom-Json -InputObject $json -ErrorAction Stop
+        $divisionOrderIds = @()
+        $divisionOrderProp = $obj.PSObject.Properties['DivisionOrderIds']
+        if ($divisionOrderProp -and $null -ne $divisionOrderProp.Value) {
+            foreach ($rawId in (ConvertTo-SafeArray -Value $divisionOrderProp.Value)) {
+                $id = ([string]$rawId).Trim()
+                if (-not [string]::IsNullOrWhiteSpace($id)) {
+                    $divisionOrderIds += $id
+                }
+            }
+        }
+
         return [ordered]@{
             SelectedDivisionId = [string]$obj.SelectedDivisionId
             SelectedMatchId    = [string]$obj.SelectedMatchId
             LiveMatchId        = [string]$obj.LiveMatchId
+            DivisionOrderIds   = @($divisionOrderIds)
         }
     }
     catch {
@@ -507,6 +586,7 @@ function Save-AppState {
             SelectedDivisionId = $script:App.AppState.SelectedDivisionId
             SelectedMatchId    = $script:App.AppState.SelectedMatchId
             LiveMatchId        = $script:App.AppState.LiveMatchId
+            DivisionOrderIds   = @(ConvertTo-SafeArray -Value $script:App.AppState.DivisionOrderIds)
         }
 
         ($payload | ConvertTo-Json -Depth 4) | Set-Content -LiteralPath $script:App.Paths.AppState -Encoding UTF8
@@ -586,6 +666,42 @@ function Reconcile-DivisionsAndMatches {
         $division.Matches = $newMatches
         Renumber-Matches -Division $division
     }
+}
+
+function Apply-DivisionOrder {
+    param([string[]]$DivisionIds)
+
+    $requested = @(ConvertTo-SafeArray -Value $DivisionIds)
+    if ($requested.Count -eq 0) {
+        $script:App.AppState.DivisionOrderIds = @($script:App.Divisions | ForEach-Object { [string]$_.Id })
+        return
+    }
+
+    $seen = @{}
+    $ordered = @()
+    foreach ($id in $requested) {
+        $cleanId = ([string]$id).Trim()
+        if ([string]::IsNullOrWhiteSpace($cleanId) -or $seen.ContainsKey($cleanId)) {
+            continue
+        }
+
+        $division = Get-DivisionById -Id $cleanId
+        if ($division) {
+            $ordered += $division
+            $seen[$cleanId] = $true
+        }
+    }
+
+    foreach ($division in $script:App.Divisions) {
+        $id = [string]$division.Id
+        if (-not $seen.ContainsKey($id)) {
+            $ordered += $division
+            $seen[$id] = $true
+        }
+    }
+
+    $script:App.Divisions = @($ordered)
+    $script:App.AppState.DivisionOrderIds = @($script:App.Divisions | ForEach-Object { [string]$_.Id })
 }
 
 function Write-OutputFile {
@@ -1367,26 +1483,28 @@ function Convert-ChallongeSvgToMatches {
             [void][double]::TryParse([string]$Matches[3], [ref]$y)
         }
 
-        $playerNodes = $node.SelectNodes(".//*[local-name()='svg' and contains(concat(' ', normalize-space(@class), ' '), ' match--player ')]")
+        $playerNodes = $node.SelectNodes(".//*[contains(concat(' ', normalize-space(@class), ' '), ' match--player ')]")
         $bots = @()
         foreach ($playerNode in $playerNodes) {
             $name = ''
+            $nameIsPlaceholder = $false
+
             $titleNode = $playerNode.SelectSingleNode("./*[local-name()='title']")
             if ($titleNode) {
                 $name = ([string]$titleNode.InnerText).Trim()
             }
 
             if ([string]::IsNullOrWhiteSpace($name)) {
-                $nameNode = $playerNode.SelectSingleNode(".//*[local-name()='text' and contains(concat(' ', normalize-space(@class), ' '), ' match--player-name ')]")
+                $nameNode = $playerNode.SelectSingleNode(".//*[contains(concat(' ', normalize-space(@class), ' '), ' match--player-name ')]")
                 if ($nameNode) {
                     $name = ([string]$nameNode.InnerText).Trim()
+                    $nameIsPlaceholder = (Test-ElementHasCssClass -Node $nameNode -ClassName '-placeholder')
                 }
             }
 
             $ignore = $false
-            if ([string]::IsNullOrWhiteSpace($name)) { $ignore = $true }
-            if ($name -match '^(TBD|BYE)$') { $ignore = $true }
-            if ($name -match '^(Winner|Loser)\s+of\b') { $ignore = $true }
+            if ($nameIsPlaceholder) { $ignore = $true }
+            if (Test-ChallongePlaceholderName -Name $name) { $ignore = $true }
 
             if (-not $ignore -and -not ($bots -contains $name)) {
                 $bots += $name
@@ -1717,11 +1835,42 @@ function Set-SelectedMatchStatus {
     Refresh-MatchList
 }
 
+function Move-SelectedDivision {
+    param([Parameter(Mandatory = $true)][int]$Delta)
+
+    $list = $script:App.Controls.DivisionList
+    if (-not $list -or $list.SelectedIndex -lt 0) {
+        return
+    }
+
+    $from = $list.SelectedIndex
+    $to = $from + $Delta
+    if ($to -lt 0 -or $to -ge $script:App.Divisions.Count) {
+        return
+    }
+
+    $temp = $script:App.Divisions[$from]
+    $script:App.Divisions[$from] = $script:App.Divisions[$to]
+    $script:App.Divisions[$to] = $temp
+
+    $script:App.AppState.SelectedDivisionId = [string]$script:App.Divisions[$to].Id
+    $script:App.AppState.SelectedMatchId = $null
+    $script:App.AppState.DivisionOrderIds = @($script:App.Divisions | ForEach-Object { [string]$_.Id })
+
+    Refresh-DivisionList
+    Refresh-BotList
+    Refresh-MatchList
+    Save-AllState
+    Set-StatusText -Text "Moved division '$($script:App.Divisions[$to].Name)'."
+    Write-Log -Message "Reordered divisions; moved '$($script:App.Divisions[$to].Name)' to position $($to + 1)"
+}
+
 function Reload-Divisions {
     $priorState = [ordered]@{
         SelectedDivisionId = $script:App.AppState.SelectedDivisionId
         SelectedMatchId    = $script:App.AppState.SelectedMatchId
         LiveMatchId        = $script:App.AppState.LiveMatchId
+        DivisionOrderIds   = @(ConvertTo-SafeArray -Value $script:App.AppState.DivisionOrderIds)
     }
 
     Load-DivisionCsvFiles
@@ -1729,10 +1878,12 @@ function Reload-Divisions {
     Apply-BotOverrides -Overrides $botOverrides
     $plans = Load-MatchPlans
     Reconcile-DivisionsAndMatches -SavedPlans $plans
+    Apply-DivisionOrder -DivisionIds @($priorState.DivisionOrderIds)
 
     $script:App.AppState.SelectedDivisionId = $priorState.SelectedDivisionId
     $script:App.AppState.SelectedMatchId = $priorState.SelectedMatchId
     $script:App.AppState.LiveMatchId = $priorState.LiveMatchId
+    $script:App.AppState.DivisionOrderIds = @($script:App.Divisions | ForEach-Object { [string]$_.Id })
 
     $liveRef = Find-MatchById -MatchId $script:App.AppState.LiveMatchId
     Clear-AllLiveStatuses
@@ -1784,11 +1935,23 @@ function Build-MainForm {
     $btnReload.Dock = 'Top'
     $btnReload.Height = 32
 
+    $btnDivUp = New-Object System.Windows.Forms.Button
+    $btnDivUp.Text = 'Move Division Up'
+    $btnDivUp.Dock = 'Top'
+    $btnDivUp.Height = 30
+
+    $btnDivDown = New-Object System.Windows.Forms.Button
+    $btnDivDown.Text = 'Move Division Down'
+    $btnDivDown.Dock = 'Top'
+    $btnDivDown.Height = 30
+
     $divList = New-Object System.Windows.Forms.ListBox
     $divList.Dock = 'Fill'
     $divList.IntegralHeight = $false
 
     $leftPanel.Controls.Add($divList)
+    $leftPanel.Controls.Add($btnDivDown)
+    $leftPanel.Controls.Add($btnDivUp)
     $leftPanel.Controls.Add($btnReload)
 
     $midPanel = New-Object System.Windows.Forms.Panel
@@ -2017,6 +2180,10 @@ function Build-MainForm {
         if ($division) {
             $script:App.AppState.SelectedDivisionId = $division.Id
             $script:App.AppState.SelectedMatchId = $null
+
+            if (@(ConvertTo-SafeArray -Value $division.Bots).Count -eq 0) {
+                Set-StatusText -Text "Division '$($division.Name)' is empty and needs bots."
+            }
         }
         Refresh-BotList
         Refresh-MatchList
@@ -2036,6 +2203,8 @@ function Build-MainForm {
     })
 
     $btnReload.Add_Click({ Reload-Divisions })
+    $btnDivUp.Add_Click({ Move-SelectedDivision -Delta -1 })
+    $btnDivDown.Add_Click({ Move-SelectedDivision -Delta 1 })
     $btnCreate.Add_Click({ Create-MatchFromSelection })
     $btnAddBot.Add_Click({ Add-BotToDivision })
     $btnEditBot.Add_Click({ Edit-SelectedBot })
@@ -2147,6 +2316,20 @@ function Build-MainForm {
             }
         }
 
+        if ($script:App.Controls.DivisionList.Focused) {
+            if ($e.Control -and $e.KeyCode -eq [System.Windows.Forms.Keys]::Up) {
+                Move-SelectedDivision -Delta -1
+                $e.SuppressKeyPress = $true
+                return
+            }
+
+            if ($e.Control -and $e.KeyCode -eq [System.Windows.Forms.Keys]::Down) {
+                Move-SelectedDivision -Delta 1
+                $e.SuppressKeyPress = $true
+                return
+            }
+        }
+
         if ($script:App.Controls.BotList.Focused) {
             if ($e.KeyCode -eq [System.Windows.Forms.Keys]::Delete) {
                 Remove-SelectedBots
@@ -2164,6 +2347,7 @@ function Initialize-Data {
     $savedPlans = Load-MatchPlans
     Reconcile-DivisionsAndMatches -SavedPlans $savedPlans
     $script:App.AppState = Load-AppState
+    Apply-DivisionOrder -DivisionIds @(ConvertTo-SafeArray -Value $script:App.AppState.DivisionOrderIds)
 
     Clear-AllLiveStatuses
     $liveRef = Find-MatchById -MatchId $script:App.AppState.LiveMatchId

@@ -1,33 +1,744 @@
 ﻿{
     "Version":  1,
-    "SavedAt":  "2026-03-20T14:38:11.0343593-07:00",
+    "SavedAt":  "2026-03-20T15:18:32.1578001-07:00",
     "Divisions":  [
                       {
-                          "DivisionName":  "0botsIQ_15lbs",
-                          "DivisionId":  "5db377a2-2da7-0d62-9e11-eb5af2a95690",
+                          "DivisionName":  "SBB IRL #3 PLANT Beginner",
+                          "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                          "Matches":  [
+                                          {
+                                              "Id":  "bfa84506-3b29-43fd-ba33-408779d33442",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  1,
+                                              "Bots":  [
+                                                           "Side Quest",
+                                                           "The Punchline"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:18:32.1578001-07:00"
+                                          },
+                                          {
+                                              "Id":  "85566a8f-2660-4c00-a5df-80d41ad63b5f",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  2,
+                                              "Bots":  [
+                                                           "Roundhouse (West Park HS)",
+                                                           "Ice Sprite"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "8f7a4b42-edff-4fa8-850e-a6702f5138eb",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  3,
+                                              "Bots":  [
+                                                           "Traffic Cone",
+                                                           "Green Goblin"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "9b3f61d3-d831-4dbe-be63-5f144bbf0039",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  4,
+                                              "Bots":  [
+                                                           "shockwave",
+                                                           "Dad\u0027s Yoga Block"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "e5bae3b2-9451-49ad-8341-c9a24cd98a3f",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  5,
+                                              "Bots":  [
+                                                           "Bubble Trouble",
+                                                           "Doorstop"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "870fe7c9-3884-453e-8401-505d67c1e27a",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  6,
+                                              "Bots":  [
+                                                           "The Spinner",
+                                                           "Anti Blaze"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "8c2668fe-98ec-4428-968e-9a62d2e1c194",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  7,
+                                              "Bots":  [
+                                                           "The Butter Chicken",
+                                                           "Side Quest"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "cc37afa4-8552-4e62-a537-f52d27320411",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  8,
+                                              "Bots":  [
+                                                           "Rookie Wrecker",
+                                                           "Roundhouse (West Park HS)"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "cb443d37-7ce9-417d-9204-757488141907",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  9,
+                                              "Bots":  [
+                                                           "Doorstop",
+                                                           "Traffic Cone"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "d1fff878-bd15-4307-9d91-44b2846d6819",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  10,
+                                              "Bots":  [
+                                                           "Anti Blaze",
+                                                           "shockwave"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "1de0712c-3462-4832-b8a0-9afef51133f6",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  11,
+                                              "Bots":  [
+                                                           "The Punchline",
+                                                           "The Butter Chicken"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "9f2e62e6-87d6-4fd0-9239-64962482477b",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  12,
+                                              "Bots":  [
+                                                           "Ice Sprite",
+                                                           "Rookie Wrecker"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "0aa26932-1509-4176-ad93-ed7d2b13583b",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  13,
+                                              "Bots":  [
+                                                           "Green Goblin",
+                                                           "Bubble Trouble"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "09b8e558-8ffc-4c13-a83e-f85eec65f4a6",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  14,
+                                              "Bots":  [
+                                                           "Dad\u0027s Yoga Block",
+                                                           "The Spinner"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "c24a1512-45e5-4915-aeef-ec5526176473",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  15,
+                                              "Bots":  [
+                                                           "Bubble Trouble",
+                                                           "Traffic Cone"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "7fb87214-e6e1-495a-b7d3-aae936efd0ca",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  16,
+                                              "Bots":  [
+                                                           "The Spinner",
+                                                           "shockwave"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "0a25408c-af3c-4212-844e-dda1d5024ec0",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  17,
+                                              "Bots":  [
+                                                           "Green Goblin",
+                                                           "Doorstop"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2224650-07:00"
+                                          },
+                                          {
+                                              "Id":  "464d2dce-3a42-4d94-b452-58413279dfd6",
+                                              "DivisionId":  "81dbf89c-fada-5784-34f4-736d03d1149b",
+                                              "MatchNumber":  18,
+                                              "Bots":  [
+                                                           "Dad\u0027s Yoga Block",
+                                                           "Anti Blaze"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Beginner",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_beginner/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:10:48.3646056-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2234652-07:00"
+                                          }
+                                      ]
+                      },
+                      {
+                          "DivisionName":  "SBB IRL #3 PLANT Intermediate",
+                          "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                          "Matches":  [
+                                          {
+                                              "Id":  "7e021dfb-7446-4369-9b8a-1449e56e01af",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  1,
+                                              "Bots":  [
+                                                           "Scooby Doo",
+                                                           "Concrete Cooper"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "a4fba784-a815-4678-b6d6-1a218f40fc65",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  2,
+                                              "Bots":  [
+                                                           "Revenge of the wedge",
+                                                           "OVER"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "bdb6ce09-550b-4c13-9ab5-d38864a613c5",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  3,
+                                              "Bots":  [
+                                                           "PAIN",
+                                                           "The Robocelot"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "4fa6a9fa-a310-4101-9e99-8dd1062272f0",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  4,
+                                              "Bots":  [
+                                                           "Wyvern",
+                                                           "Grey Menace"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "b714d06b-17f8-4554-8e5c-f1f1377c80f9",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  5,
+                                              "Bots":  [
+                                                           "Replacement Character",
+                                                           "Cement Sam"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "22ce5b14-f271-4c43-8705-766157c37d61",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  6,
+                                              "Bots":  [
+                                                           "Toaster",
+                                                           "wittle baby wobot"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "79175e0f-042e-41f9-86b4-c18084a3629a",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  7,
+                                              "Bots":  [
+                                                           "Flash Fang",
+                                                           "PNK"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "f6fc0597-4605-4ea9-8db0-9eea2e6ad024",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  8,
+                                              "Bots":  [
+                                                           "Baguette",
+                                                           "The Stray"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "99385094-bd06-4437-9dde-6dcbf32eba93",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  9,
+                                              "Bots":  [
+                                                           "Spinnamon Roll",
+                                                           "Snow Leopard"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "f4e7e085-2cbb-4804-9b8e-80c5a91e292b",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  10,
+                                              "Bots":  [
+                                                           "Wildfire",
+                                                           "Revenge of the wedge"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "a0fcf7b2-560c-4063-8d46-63ce0b184b91",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  11,
+                                              "Bots":  [
+                                                           "wittle baby wobot",
+                                                           "Scooby Doo"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "15cf17b8-d471-4559-a418-6c92889ebfa6",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  12,
+                                              "Bots":  [
+                                                           "PNK",
+                                                           "PAIN"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "167d0d41-7c60-4414-bcf7-6c90b8943977",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  13,
+                                              "Bots":  [
+                                                           "The Stray",
+                                                           "Wyvern"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "33e79fd9-e90f-44a3-9bfe-b667205e1c68",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  14,
+                                              "Bots":  [
+                                                           "Snow Leopard",
+                                                           "Replacement Character"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "029087ed-37e3-4482-b9b9-654514575e63",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  15,
+                                              "Bots":  [
+                                                           "OVER",
+                                                           "Wildfire"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "9390122d-4ed2-4f56-9765-61609cdbe77a",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  16,
+                                              "Bots":  [
+                                                           "Concrete Cooper",
+                                                           "Toaster"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "950e12db-734c-4046-833f-ecfc6433648f",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  17,
+                                              "Bots":  [
+                                                           "The Robocelot",
+                                                           "Flash Fang"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "e636a7d8-aff1-49ed-a164-58fc9cf06e92",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  18,
+                                              "Bots":  [
+                                                           "Grey Menace",
+                                                           "Baguette"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "0ae5d69e-f133-45a0-b91e-efac962a976a",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  19,
+                                              "Bots":  [
+                                                           "Cement Sam",
+                                                           "Spinnamon Roll"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "34df09e6-e71e-4dea-89f3-95479054cc56",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  20,
+                                              "Bots":  [
+                                                           "Toaster",
+                                                           "Scooby Doo"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2314647-07:00"
+                                          },
+                                          {
+                                              "Id":  "57a1f4d2-3fba-4b17-ac42-cb9d1acbde0c",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  21,
+                                              "Bots":  [
+                                                           "Flash Fang",
+                                                           "PAIN"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2324661-07:00"
+                                          },
+                                          {
+                                              "Id":  "57b064a3-7d51-4f06-a9c3-6d9b345ea8a5",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  22,
+                                              "Bots":  [
+                                                           "Baguette",
+                                                           "Wyvern"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2324661-07:00"
+                                          },
+                                          {
+                                              "Id":  "735f77c7-9067-4e1f-8b8c-ca5bdfe94d86",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  23,
+                                              "Bots":  [
+                                                           "Spinnamon Roll",
+                                                           "Replacement Character"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2324661-07:00"
+                                          },
+                                          {
+                                              "Id":  "c91a921d-0c34-401c-9b0f-47a7e7f8007c",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  24,
+                                              "Bots":  [
+                                                           "Concrete Cooper",
+                                                           "wittle baby wobot"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2324661-07:00"
+                                          },
+                                          {
+                                              "Id":  "1112a887-a2e6-43be-bb29-ab3813597ee7",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  25,
+                                              "Bots":  [
+                                                           "The Robocelot",
+                                                           "PNK"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2324661-07:00"
+                                          },
+                                          {
+                                              "Id":  "05fb2ec1-9427-4011-a136-a4ac56adc25c",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  26,
+                                              "Bots":  [
+                                                           "Grey Menace",
+                                                           "The Stray"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2324661-07:00"
+                                          },
+                                          {
+                                              "Id":  "eb333dec-a110-4ba7-99f1-dfb14e7367df",
+                                              "DivisionId":  "8e8fb2e8-c1a3-823d-0722-4615342d7504",
+                                              "MatchNumber":  27,
+                                              "Bots":  [
+                                                           "Cement Sam",
+                                                           "Snow Leopard"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB IRL #3 PLANT Intermediate",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_irl_intermediate/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:11:42.2775711-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:17:52.2324661-07:00"
+                                          }
+                                      ]
+                      },
+                      {
+                          "DivisionName":  "SBB IRL #3 PLANT Advanced Open",
+                          "DivisionId":  "119c20f0-e48e-e7f6-3613-11969073a691",
                           "Matches":  [
 
                                       ]
                       },
                       {
-                          "DivisionName":  "1beginnerPLANT",
-                          "DivisionId":  "4c1e9586-15b4-b14a-e2fb-43f40207f196",
+                          "DivisionName":  "SBB 2026 -NRL Bots IQ Bracket",
+                          "DivisionId":  "a7ebee0f-80a6-c080-535f-db0e1e1695ba",
                           "Matches":  [
-
-                                      ]
-                      },
-                      {
-                          "DivisionName":  "2intermediatePLANT",
-                          "DivisionId":  "cd85cf5e-9364-5037-2208-1c181e7d0d87",
-                          "Matches":  [
-
-                                      ]
-                      },
-                      {
-                          "DivisionName":  "3advancedPLANT",
-                          "DivisionId":  "7877e53d-3b79-6565-ba05-0aecde9cdfa6",
-                          "Matches":  [
-
+                                          {
+                                              "Id":  "dd77ce74-3b22-4f57-a11d-3767b8181811",
+                                              "DivisionId":  "a7ebee0f-80a6-c080-535f-db0e1e1695ba",
+                                              "MatchNumber":  1,
+                                              "Bots":  [
+                                                           "Lunar Eclipse",
+                                                           "Overkill"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB 2026 -NRL Bots IQ Bracket",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_15lb/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:12:55.0403486-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:18:21.4850789-07:00"
+                                          },
+                                          {
+                                              "Id":  "dd1a69b4-5489-4233-ac20-87db8cea1361",
+                                              "DivisionId":  "a7ebee0f-80a6-c080-535f-db0e1e1695ba",
+                                              "MatchNumber":  2,
+                                              "Bots":  [
+                                                           "Angular Aggression",
+                                                           "Slightly Above Average"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB 2026 -NRL Bots IQ Bracket",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_15lb/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:12:55.0403486-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:18:21.4850789-07:00"
+                                          },
+                                          {
+                                              "Id":  "a46dcfd1-96ce-47e4-acd5-ec6f18c1586a",
+                                              "DivisionId":  "a7ebee0f-80a6-c080-535f-db0e1e1695ba",
+                                              "MatchNumber":  3,
+                                              "Bots":  [
+                                                           "Neo",
+                                                           "Washing Machine"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB 2026 -NRL Bots IQ Bracket",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_15lb/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:12:55.0403486-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:18:21.4850789-07:00"
+                                          },
+                                          {
+                                              "Id":  "613d1ed3-45e9-4635-9d2c-7e34205490b5",
+                                              "DivisionId":  "a7ebee0f-80a6-c080-535f-db0e1e1695ba",
+                                              "MatchNumber":  4,
+                                              "Bots":  [
+                                                           "Rev-3",
+                                                           "Sawii"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB 2026 -NRL Bots IQ Bracket",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_15lb/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:12:55.0403486-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:18:21.4850789-07:00"
+                                          },
+                                          {
+                                              "Id":  "650236c4-7786-4ceb-978c-369f87553fed",
+                                              "DivisionId":  "a7ebee0f-80a6-c080-535f-db0e1e1695ba",
+                                              "MatchNumber":  5,
+                                              "Bots":  [
+                                                           "Dishwasher",
+                                                           "Hot Rush"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB 2026 -NRL Bots IQ Bracket",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_15lb/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:12:55.0403486-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:18:21.4850789-07:00"
+                                          },
+                                          {
+                                              "Id":  "cdefa841-4e1e-46a1-8fb0-50602257acac",
+                                              "DivisionId":  "a7ebee0f-80a6-c080-535f-db0e1e1695ba",
+                                              "MatchNumber":  6,
+                                              "Bots":  [
+                                                           "Velocity",
+                                                           "Not Scott"
+                                                       ],
+                                              "Status":  "Queued",
+                                              "ArenaLabel":  "SBB 2026 -NRL Bots IQ Bracket",
+                                              "Notes":  "Imported from Challonge SVG: https://challonge.com/sbb26_15lb/groups.svg",
+                                              "CreatedAt":  "2026-03-20T15:12:55.0403486-07:00",
+                                              "UpdatedAt":  "2026-03-20T15:18:21.4860798-07:00"
+                                          }
                                       ]
                       }
                   ]

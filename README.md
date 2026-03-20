@@ -50,6 +50,8 @@ Keyboard shortcuts:
 - `Enter` set selected match live (when match list is focused)
 - `Ctrl+Up` move match up
 - `Ctrl+Down` move match down
+- `Ctrl+Up` move selected division up (when division list is focused)
+- `Ctrl+Down` move selected division down (when division list is focused)
 - `Delete` delete selected match(es)
 - `Ctrl+L` clear live
 - `Ctrl+R` reload divisions
@@ -62,10 +64,10 @@ Keyboard shortcuts:
 ## Challonge SVG Import
 - Use `Import Challonge SVG` in the match actions (or `Ctrl+I`)
 - Paste a printer-friendly Challonge SVG URL (for example `https://challonge.com/part_nyk_beetles.svg`) or a local `.svg` file path
-- The app parses bracket matches and appends found 2+ bot matches into the selected division as `Queued`
+- The app parses bracket and group-stage matches and appends found 2+ bot matches into the selected division as `Queued`
 - Imported bot names are auto-added to that division's bot list
 - Duplicate bot names are deduped automatically (case/spacing-insensitive)
-- Placeholders (`TBD`, `BYE`, `Winner of ...`, `Loser of ...`) are skipped
+- Placeholders (`TBD`, `BYE`, `Winner of ...`, `Loser of ...`, `1st/2nd in Group ...`) are skipped
 
 ## OBS Output Files
 When a live match is set, files in `output/` are overwritten:
