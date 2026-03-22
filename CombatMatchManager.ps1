@@ -1386,6 +1386,75 @@ function Draw-MatchListItem {
     }
 }
 
+function Draw-BotListItem {
+    param(
+        [Parameter(Mandatory = $true)]$DrawEventArgs,
+        [Parameter(Mandatory = $true)]$Item
+    )
+
+    $g = $DrawEventArgs.Graphics
+    $bounds = $DrawEventArgs.Bounds
+    $font = $DrawEventArgs.Font
+    $state = $DrawEventArgs.State
+    $isSelected = (($state -band [System.Windows.Forms.DrawItemState]::Selected) -eq [System.Windows.Forms.DrawItemState]::Selected)
+
+    $background = [System.Drawing.SystemColors]::Window
+    if ($isSelected) {
+        $background = Blend-Color -Base $background -Overlay ([System.Drawing.SystemColors]::Highlight) -Amount 0.20
+    }
+    $backBrush = New-Object System.Drawing.SolidBrush($background)
+    try {
+        $g.FillRectangle($backBrush, $bounds)
+    }
+    finally {
+        $backBrush.Dispose()
+    }
+
+    $name = Normalize-BotName -Name ([string]$Item.BotName)
+    if ([string]::IsNullOrWhiteSpace($name)) {
+        return
+    }
+
+    $pillX = $bounds.X + 8
+    $pillY = $bounds.Y + 3
+    $pillH = [Math]::Max(24, $bounds.Height - 6)
+    $textWidth = Get-CachedTextWidth -Graphics $g -Font $font -Text $name
+    $pillW = [Math]::Min(($bounds.Width - 16), ($textWidth + 20))
+    if ($pillW -lt 40) { $pillW = 40 }
+    $pillRect = [System.Drawing.RectangleF]::new([float]$pillX, [float]$pillY, [float]$pillW, [float]$pillH)
+    $pillRectI = [System.Drawing.Rectangle]::new(
+        [int][Math]::Floor($pillRect.X),
+        [int][Math]::Floor($pillRect.Y),
+        [int][Math]::Ceiling($pillRect.Width),
+        [int][Math]::Ceiling($pillRect.Height)
+    )
+
+    $style = Get-BotColorStyle -BotName $name
+    $pillBrush = New-Object System.Drawing.SolidBrush($style.Fill)
+    $pillPen = New-Object System.Drawing.Pen($style.Border, 1.4)
+    $pillPath = New-RoundedRectPath -Rect $pillRect -Radius ([float]($pillRect.Height / 2.0))
+    $textFlags = [System.Windows.Forms.TextFormatFlags]::HorizontalCenter `
+        -bor [System.Windows.Forms.TextFormatFlags]::VerticalCenter `
+        -bor [System.Windows.Forms.TextFormatFlags]::NoPadding `
+        -bor [System.Windows.Forms.TextFormatFlags]::SingleLine `
+        -bor [System.Windows.Forms.TextFormatFlags]::EndEllipsis
+
+    try {
+        $g.FillPath($pillBrush, $pillPath)
+        $g.DrawPath($pillPen, $pillPath)
+        [System.Windows.Forms.TextRenderer]::DrawText($g, $name, $font, $pillRectI, $style.Text, $textFlags)
+    }
+    finally {
+        $pillPath.Dispose()
+        $pillBrush.Dispose()
+        $pillPen.Dispose()
+    }
+
+    if (($state -band [System.Windows.Forms.DrawItemState]::Focus) -eq [System.Windows.Forms.DrawItemState]::Focus) {
+        $DrawEventArgs.DrawFocusRectangle()
+    }
+}
+
 function Get-MatchDisplayText {
     param([Parameter(Mandatory = $true)]$Match)
 
@@ -2435,6 +2504,22 @@ function Build-MainForm {
     $botList.Dock = 'Fill'
     $botList.SelectionMode = [System.Windows.Forms.SelectionMode]::MultiExtended
     $botList.IntegralHeight = $false
+    $botList.DrawMode = [System.Windows.Forms.DrawMode]::OwnerDrawFixed
+    $botList.ItemHeight = 30
+    $botList.Add_DrawItem({
+        param($sender, $e)
+
+        if ($e.Index -lt 0 -or $e.Index -ge $sender.Items.Count) {
+            return
+        }
+
+        $item = $sender.Items[$e.Index]
+        if (-not $item) {
+            return
+        }
+
+        Draw-BotListItem -DrawEventArgs $e -Item $item
+    })
 
     $midPanel.Controls.Add($botList)
     $midPanel.Controls.Add($btnCreate)

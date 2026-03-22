@@ -491,3 +491,29 @@
 [2026-03-20 15:29:27] [INFO] Saved match plans to data\matchPlans.json
 [2026-03-20 15:29:27] [INFO] Saved bot overrides to data\botOverrides.json
 [2026-03-20 15:29:27] [INFO] Application shutdown
+[2026-03-21 21:54:10] [INFO] Application startup
+[2026-03-21 21:54:10] [INFO] Loaded division 'SBB 2026 -NRL Bots IQ Bracket' with 0 bots from SBB 2026 -NRL Bots IQ Bracket.csv
+[2026-03-21 21:54:10] [INFO] Loaded division 'SBB IRL #3 PLANT Advanced Open' with 0 bots from SBB IRL #3 PLANT Advanced Open.csv
+[2026-03-21 21:54:10] [INFO] Loaded division 'SBB IRL #3 PLANT Beginner' with 0 bots from SBB IRL #3 PLANT Beginner.csv
+[2026-03-21 21:54:10] [INFO] Loaded division 'SBB IRL #3 PLANT Intermediate' with 0 bots from SBB IRL #3 PLANT Intermediate.csv
+[2026-03-21 21:54:10] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-21 21:54:10] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-21 21:54:10] [INFO] Cleared OBS output files
+[2026-03-21 22:03:41] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-21 22:03:41] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-21 22:03:41] [INFO] Application shutdown
+[2026-03-21 22:03:45] [INFO] Application startup
+[2026-03-21 22:03:45] [INFO] Loaded division 'SBB 2026 -NRL Bots IQ Bracket' with 0 bots from SBB 2026 -NRL Bots IQ Bracket.csv
+[2026-03-21 22:03:45] [INFO] Loaded division 'SBB IRL #3 PLANT Advanced Open' with 0 bots from SBB IRL #3 PLANT Advanced Open.csv
+[2026-03-21 22:03:45] [INFO] Loaded division 'SBB IRL #3 PLANT Beginner' with 0 bots from SBB IRL #3 PLANT Beginner.csv
+[2026-03-21 22:03:45] [INFO] Loaded division 'SBB IRL #3 PLANT Intermediate' with 0 bots from SBB IRL #3 PLANT Intermediate.csv
+[2026-03-21 22:03:45] [INFO] Loaded bot overrides from data\botOverrides.json
+[2026-03-21 22:03:45] [INFO] Loaded match plans from data\matchPlans.json
+[2026-03-21 22:03:45] [INFO] Cleared OBS output files
+[2026-03-21 22:04:09] [WARN] Selected bot(s) already appear in other matches: Side Quest, The Punchline.
+[2026-03-21 22:04:09] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-21 22:04:09] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-21 22:04:09] [INFO] Created match '334e02cb-88db-4701-b4e3-477bbfbf70c2' in division 'SBB IRL #3 PLANT Beginner'
+[2026-03-21 22:04:16] [INFO] Saved match plans to data\matchPlans.json
+[2026-03-21 22:04:16] [INFO] Saved bot overrides to data\botOverrides.json
+[2026-03-21 22:04:16] [INFO] Deleted 1 match(es) from division 'SBB IRL #3 PLANT Beginner'
